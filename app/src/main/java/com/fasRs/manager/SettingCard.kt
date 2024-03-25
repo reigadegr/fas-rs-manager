@@ -1,4 +1,4 @@
-package com.fas_rs.manager
+package com.fasRs.manager
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -10,14 +10,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun SettingCard(modifier: Modifier = Modifier) {
+fun settingCard(modifier: Modifier = Modifier) {
     Card(
-        modifier = modifier
-            .padding(10.dp)
-            .fillMaxWidth()
-            .clickable { },
-        shape = RoundedCornerShape(20.dp)
+        modifier =
+            modifier
+                .padding(10.dp)
+                .fillMaxWidth()
+                .clickable { },
+        shape = RoundedCornerShape(20.dp),
     ) {
-
     }
 }

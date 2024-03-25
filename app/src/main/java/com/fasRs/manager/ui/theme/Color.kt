@@ -1,4 +1,4 @@
-package com.fas_rs.manager.ui.theme
+package com.fasRs.manager.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

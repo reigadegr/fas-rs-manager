@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.fas_rs.manager"
+    namespace = "com.fasRs.manager"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.fas_rs.manager"
+        applicationId = "com.fasRs.manager"
         minSdk = 31
         targetSdk = 34
         versionCode = 1
@@ -25,7 +25,7 @@ android {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                "proguard-rules.pro",
             )
         }
     }
