@@ -14,6 +14,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -29,8 +30,8 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background,
                 ) {
                     Column(modifier = Modifier.fillMaxWidth()) {
-                        Title()
-                        MainCards()
+                        Title(modifier = Modifier.align(Alignment.Start))
+                        MainCards(modifier = Modifier.align(Alignment.End))
                     }
                 }
             }
@@ -38,23 +39,11 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-@Composable
 @Preview
-fun MainCards(modifier: Modifier = Modifier) {
-    Surface(
-        modifier =
-        modifier
-            .fillMaxWidth()
-            .padding(25.dp)
-            .height(400.dp),
-        border = BorderStroke(2.dp, MaterialTheme.colorScheme.secondary),
-        shape = RoundedCornerShape(20.dp),
-        color = MaterialTheme.colorScheme.onSecondary,
-    ) {
-        Column(modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.Top) {
-            repeat(4) {
-                settingCard(modifier = Modifier.weight(0.25f))
-            }
-        }
+@Composable
+fun MainPreview() {
+    Column(modifier = Modifier.fillMaxWidth()) {
+        Title(modifier = Modifier.align(Alignment.Start))
+        MainCards(modifier = Modifier.align(Alignment.End))
     }
 }
