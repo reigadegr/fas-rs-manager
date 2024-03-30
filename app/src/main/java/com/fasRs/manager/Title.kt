@@ -1,6 +1,5 @@
 package com.fasRs.manager
 
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -10,10 +9,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Divider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -46,7 +43,7 @@ fun Title(modifier: Modifier = Modifier) {
                     .weight(0.382f)
                     .padding(10.dp), contentAlignment = Alignment.Center
             ) {
-                titleText(
+                TitleText(
                     modifier =
                     Modifier
                         .fillMaxHeight()
@@ -66,7 +63,7 @@ fun Title(modifier: Modifier = Modifier) {
                         .weight(0.5f),
                     contentAlignment = Alignment.Center
                 ) {
-                    titleMotto(
+                    TitleMotto(
                         modifier =
                         Modifier
                             .fillMaxWidth()
@@ -87,7 +84,7 @@ fun Title(modifier: Modifier = Modifier) {
                         .weight(0.5f),
                     contentAlignment = Alignment.Center
                 ) {
-                    titleStatus(
+                    TitleStatus(
                         modifier =
                         Modifier
                             .fillMaxWidth()
@@ -101,7 +98,7 @@ fun Title(modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun titleText(
+fun TitleText(
     modifier: Modifier,
     color: Color,
 ) {
@@ -116,7 +113,7 @@ fun titleText(
 }
 
 @Composable
-fun titleStatus(
+fun TitleStatus(
     modifier: Modifier,
     color: Color,
 ) {
@@ -131,7 +128,7 @@ fun titleStatus(
 }
 
 @Composable
-fun titleMotto(
+fun TitleMotto(
     modifier: Modifier,
     color: Color,
 ) {
