@@ -29,7 +29,6 @@ import androidx.compose.ui.unit.dp
 fun Title(modifier: Modifier = Modifier) {
     Surface(
         modifier = modifier
-            .padding(25.dp)
             .height(130.dp),
         shape = RoundedCornerShape(20.dp),
         color = MaterialTheme.colorScheme.primary,
@@ -123,7 +122,7 @@ fun TitleStatus(
         textAlign = TextAlign.Center,
         modifier = modifier,
         color = color,
-        fontSize = TextUnit(5.0f, TextUnitType.Em)
+        fontSize = TextUnit(6.0f, TextUnitType.Em)
     )
 
 }

@@ -30,15 +30,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background,
                 ) {
-                    Column(modifier = Modifier.fillMaxSize()) {
-                        Box(modifier = Modifier.fillMaxWidth().weight(0.382f).align(Alignment.Start)) {
-                            Title()
-                        }
-
-                        Box(modifier = Modifier.fillMaxWidth().weight(0.618f).align(Alignment.End)) {
-                            MainCards()
-                        }
-                    }
+                    Screen()
                 }
             }
         }
@@ -47,9 +39,25 @@ class MainActivity : ComponentActivity() {
 
 @Preview
 @Composable
-fun MainPreview() {
-    Column(modifier = Modifier.fillMaxWidth()) {
-        Title()
-        MainCards()
+private fun Screen() {
+    Column(modifier = Modifier.fillMaxSize()) {
+        Box(modifier = Modifier
+            .fillMaxWidth()
+            .weight(0.382f)
+            .align(Alignment.Start)) {
+            Title(
+                Modifier
+                    .align(Alignment.TopCenter)
+                    .padding(25.dp))
+        }
+
+        Box(modifier = Modifier
+            .fillMaxWidth()
+            .weight(0.618f)
+            .align(Alignment.End)) {
+            MainCards(modifier = Modifier
+                .align(Alignment.BottomCenter)
+                .padding(25.dp))
+        }
     }
 }

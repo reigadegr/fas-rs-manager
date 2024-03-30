@@ -23,8 +23,7 @@ fun MainCards(modifier: Modifier = Modifier) {
     Surface(
         modifier = modifier
             .fillMaxWidth()
-            .padding(25.dp)
-            .height(400.dp),
+            .height(500.dp),
         border = BorderStroke(2.dp, MaterialTheme.colorScheme.secondary),
         shape = RoundedCornerShape(20.dp),
         color = MaterialTheme.colorScheme.onSecondary,
