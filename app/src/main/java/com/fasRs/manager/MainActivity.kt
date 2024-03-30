@@ -29,8 +29,8 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background,
                 ) {
                     Column(modifier = Modifier.fillMaxWidth()) {
-                        mainTitle()
-                        mainCards()
+                        Title()
+                        MainCards()
                     }
                 }
             }
@@ -40,32 +40,16 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 @Preview
-fun mainTitle(modifier: Modifier = Modifier) {
+fun MainCards(modifier: Modifier = Modifier) {
     Surface(
         modifier =
-            modifier
-                .fillMaxWidth()
-                .padding(25.dp)
-                .height(150.dp),
-        shape = RoundedCornerShape(20.dp),
-        color = MaterialTheme.colorScheme.primary,
-    ) {
-        title(modifier = Modifier.fillMaxSize())
-    }
-}
-
-@Composable
-@Preview
-fun mainCards(modifier: Modifier = Modifier) {
-    Surface(
-        modifier =
-            modifier
-                .fillMaxWidth()
-                .padding(25.dp)
-                .height(400.dp),
+        modifier
+            .fillMaxWidth()
+            .padding(25.dp)
+            .height(400.dp),
         border = BorderStroke(2.dp, MaterialTheme.colorScheme.secondary),
         shape = RoundedCornerShape(20.dp),
-        color = MaterialTheme.colorScheme.background,
+        color = MaterialTheme.colorScheme.onSecondary,
     ) {
         Column(modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.Top) {
             repeat(4) {

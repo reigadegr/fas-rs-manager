@@ -1,82 +1,101 @@
 package com.fasRs.manager
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Divider
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.TextUnit
+import androidx.compose.ui.unit.TextUnitType
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun title(modifier: Modifier) {
-    Row(
-        modifier = modifier,
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.Center,
+@Preview
+fun Title(modifier: Modifier = Modifier) {
+    Surface(
+        modifier = modifier
+            .padding(25.dp)
+            .height(130.dp),
+        shape = RoundedCornerShape(20.dp),
+        color = MaterialTheme.colorScheme.primary,
     ) {
-        titleText(
-            modifier =
-                Modifier
-                    .fillMaxHeight()
-                    .wrapContentSize(Alignment.Center)
-                    .weight(0.312f)
-                    .padding(5.dp),
-            color = MaterialTheme.colorScheme.onPrimary,
-        )
-
-        Divider(
-            modifier =
-                Modifier
-                    .fillMaxHeight()
-                    .width(3.dp),
-            color = MaterialTheme.colorScheme.background,
-        )
-
-        Column(
-            modifier =
-                Modifier
-                    .fillMaxHeight()
-                    .weight(0.6f),
-            verticalArrangement = Arrangement.Center,
+        Row(
+            modifier = Modifier.fillMaxSize(),
         ) {
-            titleMotto(
-                modifier =
+            Box(
+                modifier = Modifier
+                    .fillMaxHeight()
+                    .weight(0.382f)
+                    .padding(10.dp), contentAlignment = Alignment.Center
+            ) {
+                titleText(
+                    modifier =
                     Modifier
-                        .fillMaxWidth()
-                        .weight(0.5f)
-                        .wrapContentSize(Alignment.Center)
-                        .align(Alignment.CenterHorizontally)
-                        .padding(5.dp),
-                color = MaterialTheme.colorScheme.onTertiary,
-            )
+                        .fillMaxHeight()
+                        .wrapContentSize(Alignment.Center),
+                    color = MaterialTheme.colorScheme.onPrimary,
+                )
+            }
 
-            Divider(
-                modifier = Modifier.height(3.dp),
-                color = MaterialTheme.colorScheme.background,
-            )
-
-            titleStatus(
-                modifier =
-                    Modifier
+            Column(
+                modifier = Modifier
+                    .fillMaxHeight()
+                    .weight(0.618f),
+            ) {
+                Box(
+                    modifier = Modifier
                         .fillMaxWidth()
-                        .weight(0.5f)
-                        .wrapContentSize(Alignment.Center)
-                        .align(Alignment.CenterHorizontally)
-                        .padding(5.dp),
-                color = MaterialTheme.colorScheme.onSecondary,
-            )
+                        .weight(0.5f),
+                    contentAlignment = Alignment.Center
+                ) {
+                    titleMotto(
+                        modifier =
+                        Modifier
+                            .fillMaxWidth()
+                            .wrapContentSize(Alignment.Center),
+                        color = MaterialTheme.colorScheme.onTertiary,
+                    )
+                }
+
+                Spacer(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(3.dp)
+                )
+
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .weight(0.5f),
+                    contentAlignment = Alignment.Center
+                ) {
+                    titleStatus(
+                        modifier =
+                        Modifier
+                            .fillMaxWidth()
+                            .wrapContentSize(Alignment.Center),
+                        color = MaterialTheme.colorScheme.onSecondary,
+                    )
+                }
+            }
         }
     }
 }
@@ -88,10 +107,11 @@ fun titleText(
 ) {
     Text(
         text = "fas-rs",
-        style = MaterialTheme.typography.displayMedium,
+        style = MaterialTheme.typography.headlineLarge,
         textAlign = TextAlign.Center,
         modifier = modifier,
         color = color,
+        fontSize = TextUnit(8.0f, TextUnitType.Em)
     )
 }
 
@@ -106,6 +126,7 @@ fun titleStatus(
         textAlign = TextAlign.Center,
         modifier = modifier,
         color = color,
+        fontSize = TextUnit(5.0f, TextUnitType.Em)
     )
 }
 
