@@ -3,10 +3,12 @@ package com.fasRs.manager
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
@@ -22,10 +24,13 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             FasrsManagerTheme {
-                Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
-                    Column {
-                        mainTitle(modifier = Modifier.weight(0.2f))
-                        mainCards(modifier = Modifier.weight(0.8f))
+                Surface(
+                    modifier = Modifier.fillMaxSize(),
+                    color = MaterialTheme.colorScheme.background,
+                ) {
+                    Column(modifier = Modifier.fillMaxWidth()) {
+                        mainTitle()
+                        mainCards()
                     }
                 }
             }
@@ -40,11 +45,12 @@ fun mainTitle(modifier: Modifier = Modifier) {
         modifier =
             modifier
                 .fillMaxWidth()
-                .padding(25.dp),
+                .padding(25.dp)
+                .height(150.dp),
         shape = RoundedCornerShape(20.dp),
-        color = MaterialTheme.colorScheme.primaryContainer,
+        color = MaterialTheme.colorScheme.primary,
     ) {
-        Title(modifier = Modifier.fillMaxSize())
+        title(modifier = Modifier.fillMaxSize())
     }
 }
 
@@ -55,13 +61,15 @@ fun mainCards(modifier: Modifier = Modifier) {
         modifier =
             modifier
                 .fillMaxWidth()
-                .padding(25.dp),
+                .padding(25.dp)
+                .height(400.dp),
+        border = BorderStroke(2.dp, MaterialTheme.colorScheme.secondary),
         shape = RoundedCornerShape(20.dp),
-        color = MaterialTheme.colorScheme.secondaryContainer,
+        color = MaterialTheme.colorScheme.background,
     ) {
         Column(modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.Top) {
             repeat(4) {
-                SettingCard(modifier = Modifier.weight(0.25f))
+                settingCard(modifier = Modifier.weight(0.25f))
             }
         }
     }

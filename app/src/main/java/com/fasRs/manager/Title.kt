@@ -31,9 +31,9 @@ fun title(modifier: Modifier) {
                 Modifier
                     .fillMaxHeight()
                     .wrapContentSize(Alignment.Center)
-                    .weight(0.4f)
+                    .weight(0.312f)
                     .padding(5.dp),
-            color = MaterialTheme.colorScheme.primary,
+            color = MaterialTheme.colorScheme.onPrimary,
         )
 
         Divider(
@@ -41,7 +41,7 @@ fun title(modifier: Modifier) {
                 Modifier
                     .fillMaxHeight()
                     .width(3.dp),
-            color = MaterialTheme.colorScheme.tertiaryContainer,
+            color = MaterialTheme.colorScheme.background,
         )
 
         Column(
@@ -59,12 +59,12 @@ fun title(modifier: Modifier) {
                         .wrapContentSize(Alignment.Center)
                         .align(Alignment.CenterHorizontally)
                         .padding(5.dp),
-                color = MaterialTheme.colorScheme.tertiary,
+                color = MaterialTheme.colorScheme.onTertiary,
             )
 
             Divider(
                 modifier = Modifier.height(3.dp),
-                color = MaterialTheme.colorScheme.tertiaryContainer,
+                color = MaterialTheme.colorScheme.background,
             )
 
             titleStatus(
@@ -75,7 +75,7 @@ fun title(modifier: Modifier) {
                         .wrapContentSize(Alignment.Center)
                         .align(Alignment.CenterHorizontally)
                         .padding(5.dp),
-                color = MaterialTheme.colorScheme.secondary,
+                color = MaterialTheme.colorScheme.onSecondary,
             )
         }
     }
