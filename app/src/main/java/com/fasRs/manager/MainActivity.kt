@@ -5,6 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -29,9 +30,14 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background,
                 ) {
-                    Column(modifier = Modifier.fillMaxWidth()) {
-                        Title(modifier = Modifier.align(Alignment.Start))
-                        MainCards(modifier = Modifier.align(Alignment.End))
+                    Column(modifier = Modifier.fillMaxSize()) {
+                        Box(modifier = Modifier.fillMaxWidth().weight(0.382f).align(Alignment.Start)) {
+                            Title()
+                        }
+
+                        Box(modifier = Modifier.fillMaxWidth().weight(0.618f).align(Alignment.End)) {
+                            MainCards()
+                        }
                     }
                 }
             }
@@ -43,7 +49,7 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun MainPreview() {
     Column(modifier = Modifier.fillMaxWidth()) {
-        Title(modifier = Modifier.align(Alignment.Start))
-        MainCards(modifier = Modifier.align(Alignment.End))
+        Title()
+        MainCards()
     }
 }

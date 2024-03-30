@@ -125,6 +125,7 @@ fun TitleStatus(
         color = color,
         fontSize = TextUnit(5.0f, TextUnitType.Em)
     )
+
 }
 
 @Composable
