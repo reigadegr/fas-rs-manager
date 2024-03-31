@@ -3,6 +3,7 @@ package com.fasRs.manager
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -30,8 +31,10 @@ import androidx.compose.ui.unit.dp
 fun Title(modifier: Modifier = Modifier) {
     Column(modifier = modifier) {
         Box {
-            TitleText(modifier = Modifier.padding(25.dp), color = MaterialTheme.colorScheme.primary)
+            TitleText(modifier = Modifier, color = MaterialTheme.colorScheme.primary)
         }
+        
+        Spacer(modifier = Modifier.height(25.dp))
 
         Surface(
             modifier = Modifier.fillMaxWidth(),

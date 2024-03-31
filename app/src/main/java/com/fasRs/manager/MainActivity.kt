@@ -1,7 +1,9 @@
 package com.fasRs.manager
 
+import android.content.ComponentName
 import android.content.Context
 import android.os.Bundle
+import android.os.IBinder
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Box
@@ -19,13 +21,18 @@ import androidx.compose.ui.unit.dp
 import com.fasRs.manager.root.RootConnection
 import com.fasRs.manager.ui.theme.FasrsManagerTheme
 import android.util.Log
+import com.topjohnwu.superuser.Shell
+import com.topjohnwu.superuser.ShellUtils
 
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
-        val rootConnection = RootConnection(applicationContext)
-        val message = rootConnection.aidl()!!.checkConnection()
-        Log.d("su check", message)
+        object : RootConnection(applicationContext) {
+            override fun do_ipc(ipc: IRootIPC) {
+                val message = ipc.checkConnection()
+                Log.d("su check", message)
+            }
+        }
 
         super.onCreate(savedInstanceState)
         setContent {
