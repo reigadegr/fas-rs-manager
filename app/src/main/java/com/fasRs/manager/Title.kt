@@ -47,6 +47,7 @@ fun Title(modifier: Modifier = Modifier) {
             ) {
                 Icon(
                     imageVector = Icons.Filled.CheckCircle,
+                    // imageVector = Icons.Default.Close,
                     modifier = Modifier
                         .width(100.dp)
                         .height(100.dp)
