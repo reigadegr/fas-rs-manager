@@ -47,7 +47,7 @@ private fun Screen() {
             .align(Alignment.Start)) {
             Title(
                 Modifier
-                    .align(Alignment.TopCenter)
+                    .align(Alignment.BottomCenter)
                     .padding(25.dp))
         }
 

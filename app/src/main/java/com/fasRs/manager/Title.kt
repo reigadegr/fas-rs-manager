@@ -3,14 +3,15 @@ package com.fasRs.manager
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.CheckCircle
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -27,69 +28,54 @@ import androidx.compose.ui.unit.dp
 @Composable
 @Preview
 fun Title(modifier: Modifier = Modifier) {
-    Surface(
-        modifier = modifier
-            .height(130.dp),
-        shape = RoundedCornerShape(20.dp),
-        color = MaterialTheme.colorScheme.primary,
-    ) {
-        Row(
-            modifier = Modifier.fillMaxSize(),
+    Column(modifier = modifier) {
+        Box {
+            TitleText(modifier = Modifier.padding(25.dp), color = MaterialTheme.colorScheme.primary)
+        }
+
+        Surface(
+            modifier = Modifier.fillMaxWidth(),
+            shape = RoundedCornerShape(20.dp),
+            color = MaterialTheme.colorScheme.primary,
         ) {
-            Box(
-                modifier = Modifier
-                    .fillMaxHeight()
-                    .weight(0.382f)
-                    .padding(10.dp), contentAlignment = Alignment.Center
-            ) {
-                TitleText(
-                    modifier =
-                    Modifier
-                        .fillMaxHeight()
-                        .wrapContentSize(Alignment.Center),
-                    color = MaterialTheme.colorScheme.onPrimary,
-                )
-            }
 
-            Column(
+            Row(
                 modifier = Modifier
-                    .fillMaxHeight()
-                    .weight(0.618f),
+                    .fillMaxWidth()
+                    .height(130.dp),
+                verticalAlignment = Alignment.CenterVertically
             ) {
-                Box(
+                Icon(
+                    imageVector = Icons.Filled.CheckCircle,
                     modifier = Modifier
-                        .fillMaxWidth()
-                        .weight(0.5f),
-                    contentAlignment = Alignment.Center
-                ) {
-                    TitleMotto(
-                        modifier =
-                        Modifier
-                            .fillMaxWidth()
-                            .wrapContentSize(Alignment.Center),
-                        color = MaterialTheme.colorScheme.onTertiary,
-                    )
-                }
-
-                Spacer(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(3.dp)
+                        .width(100.dp)
+                        .height(100.dp)
+                        .padding(25.dp),
+                    contentDescription = null
                 )
 
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .weight(0.5f),
-                    contentAlignment = Alignment.Center
+                Column(
+                    modifier = Modifier.fillMaxHeight()
                 ) {
-                    TitleStatus(
-                        modifier =
-                        Modifier
+                    Box(
+                        modifier = Modifier
                             .fillMaxWidth()
-                            .wrapContentSize(Alignment.Center),
-                        color = MaterialTheme.colorScheme.onSecondary,
-                    )
+                            .weight(0.5f),
+                        contentAlignment = Alignment.BottomStart
+                    ) {
+                        TitleMotto(color = MaterialTheme.colorScheme.onTertiary)
+                    }
+
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .weight(0.5f),
+                        contentAlignment = Alignment.TopStart
+                    ) {
+                        TitleStatus(
+                            color = MaterialTheme.colorScheme.onSecondary,
+                        )
+                    }
                 }
             }
         }
@@ -98,7 +84,7 @@ fun Title(modifier: Modifier = Modifier) {
 
 @Composable
 fun TitleText(
-    modifier: Modifier,
+    modifier: Modifier = Modifier,
     color: Color,
 ) {
     Text(
@@ -113,28 +99,26 @@ fun TitleText(
 
 @Composable
 fun TitleStatus(
-    modifier: Modifier,
+    modifier: Modifier = Modifier,
     color: Color,
 ) {
     Text(
-        text = "Status: Todo",
-        style = MaterialTheme.typography.headlineMedium,
+        text = "todo: version",
+        style = MaterialTheme.typography.headlineSmall,
         textAlign = TextAlign.Center,
         modifier = modifier,
         color = color,
-        fontSize = TextUnit(6.0f, TextUnitType.Em)
     )
-
 }
 
 @Composable
 fun TitleMotto(
-    modifier: Modifier,
+    modifier: Modifier = Modifier,
     color: Color,
 ) {
     Text(
-        text = "todo: motto",
-        style = MaterialTheme.typography.headlineSmall,
+        text = "todo: status",
+        style = MaterialTheme.typography.headlineMedium,
         textAlign = TextAlign.Center,
         modifier = modifier,
         color = color,
