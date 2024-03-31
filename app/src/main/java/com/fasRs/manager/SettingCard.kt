@@ -21,9 +21,10 @@ import androidx.compose.ui.unit.dp
 @Preview
 fun MainCards(modifier: Modifier = Modifier) {
     Surface(
-        modifier = modifier
-            .fillMaxWidth()
-            .height(500.dp),
+        modifier =
+            modifier
+                .fillMaxWidth()
+                .height(500.dp),
         border = BorderStroke(2.dp, MaterialTheme.colorScheme.secondary),
         shape = RoundedCornerShape(20.dp),
         color = MaterialTheme.colorScheme.onSecondary,
@@ -39,10 +40,11 @@ fun MainCards(modifier: Modifier = Modifier) {
 @Composable
 fun SettingCard(modifier: Modifier = Modifier) {
     Card(
-        modifier = modifier
-            .padding(10.dp)
-            .fillMaxWidth()
-            .clickable { },
+        modifier =
+            modifier
+                .padding(10.dp)
+                .fillMaxWidth()
+                .clickable { },
         shape = RoundedCornerShape(20.dp),
     ) {}
 }

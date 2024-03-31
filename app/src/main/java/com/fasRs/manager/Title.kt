@@ -33,7 +33,7 @@ fun Title(modifier: Modifier = Modifier) {
         Box {
             TitleText(modifier = Modifier, color = MaterialTheme.colorScheme.primary)
         }
-        
+
         Spacer(modifier = Modifier.height(25.dp))
 
         Surface(
@@ -41,40 +41,43 @@ fun Title(modifier: Modifier = Modifier) {
             shape = RoundedCornerShape(20.dp),
             color = MaterialTheme.colorScheme.primary,
         ) {
-
             Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(130.dp),
-                verticalAlignment = Alignment.CenterVertically
+                modifier =
+                    Modifier
+                        .fillMaxWidth()
+                        .height(130.dp),
+                verticalAlignment = Alignment.CenterVertically,
             ) {
                 Icon(
                     imageVector = Icons.Filled.CheckCircle,
                     // imageVector = Icons.Default.Close,
-                    modifier = Modifier
-                        .width(100.dp)
-                        .height(100.dp)
-                        .padding(25.dp),
-                    contentDescription = null
+                    modifier =
+                        Modifier
+                            .width(100.dp)
+                            .height(100.dp)
+                            .padding(25.dp),
+                    contentDescription = null,
                 )
 
                 Column(
-                    modifier = Modifier.fillMaxHeight()
+                    modifier = Modifier.fillMaxHeight(),
                 ) {
                     Box(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .weight(0.5f),
-                        contentAlignment = Alignment.BottomStart
+                        modifier =
+                            Modifier
+                                .fillMaxWidth()
+                                .weight(0.5f),
+                        contentAlignment = Alignment.BottomStart,
                     ) {
                         TitleMotto(color = MaterialTheme.colorScheme.onTertiary)
                     }
 
                     Box(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .weight(0.5f),
-                        contentAlignment = Alignment.TopStart
+                        modifier =
+                            Modifier
+                                .fillMaxWidth()
+                                .weight(0.5f),
+                        contentAlignment = Alignment.TopStart,
                     ) {
                         TitleStatus(
                             color = MaterialTheme.colorScheme.onSecondary,
@@ -97,7 +100,7 @@ fun TitleText(
         textAlign = TextAlign.Center,
         modifier = modifier,
         color = color,
-        fontSize = TextUnit(8.0f, TextUnitType.Em)
+        fontSize = TextUnit(8.0f, TextUnitType.Em),
     )
 }
 
