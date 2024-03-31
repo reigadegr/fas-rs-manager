@@ -16,14 +16,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.fasRs.manager.root.Sudo
+import com.fasRs.manager.root.aidlDo
 import com.fasRs.manager.ui.theme.FasrsManagerTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
-        Sudo(applicationContext) { ipc ->
+        aidlDo(applicationContext) { ipc ->
             val message = ipc.checkConnection()
-            Toast.makeText(applicationContext, "su checked", Toast.LENGTH_LONG).show()
+            Toast.makeText(applicationContext, message, Toast.LENGTH_LONG).show()
             // Log.d("su checked", message)
         }
 

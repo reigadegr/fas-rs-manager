@@ -9,7 +9,7 @@ import android.util.Log
 import com.fasRs.manager.IRootIPC
 import com.topjohnwu.superuser.ipc.RootService as LibSuService
 
-fun Sudo(
+fun aidlDo(
     context: Context,
     action: (IRootIPC) -> Unit,
 ) {

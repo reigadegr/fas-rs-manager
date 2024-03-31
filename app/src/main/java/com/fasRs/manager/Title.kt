@@ -100,7 +100,7 @@ fun TitleText(
         textAlign = TextAlign.Center,
         modifier = modifier,
         color = color,
-        fontSize = TextUnit(8.0f, TextUnitType.Em),
+        fontSize = TextUnit(9.0f, TextUnitType.Em),
     )
 }
 
