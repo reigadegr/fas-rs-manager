@@ -28,7 +28,7 @@ import com.topjohnwu.superuser.ShellUtils
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         object : RootConnection(applicationContext) {
-            override fun do_ipc(ipc: IRootIPC) {
+            override fun DoIpc(ipc: IRootIPC) {
                 val message = ipc.checkConnection()
                 Log.d("su check", message)
             }

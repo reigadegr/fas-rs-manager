@@ -15,12 +15,12 @@ abstract class RootConnection(context: Context) : ServiceConnection {
         LibSuService.bind(intent, this)
     }
 
-    abstract fun do_ipc(ipc: IRootIPC)
+    abstract fun DoIpc(ipc: IRootIPC)
 
     override fun onServiceConnected(name: ComponentName, binder: IBinder) {
         Log.d("libsu", "binded")
         val ipc = IRootIPC.Stub.asInterface(binder)
-        do_ipc(ipc)
+        DoIpc(ipc)
     }
 
     override fun onServiceDisconnected(p0: ComponentName?) {
