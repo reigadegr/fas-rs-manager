@@ -3,9 +3,9 @@ package com.fasRs.manager.root
 import android.content.Intent
 import android.os.IBinder
 import com.fasRs.manager.IRootIPC
-import com.topjohnwu.superuser.ipc.RootService as SuService
+import com.topjohnwu.superuser.ipc.RootService as LibSuService
 
-class RootService : SuService() {
+class RootService : LibSuService() {
     private val rootIPC = object : IRootIPC.Stub() {
         override fun checkConnection() : String {
             return "Hello su"

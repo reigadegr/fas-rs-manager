@@ -24,7 +24,7 @@ import android.util.Log
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         val rootConnection = RootConnection(applicationContext)
-        val message = rootConnection.sudo().checkConnection()
+        val message = rootConnection.aidl()!!.checkConnection()
         Log.d("su check", message)
 
         super.onCreate(savedInstanceState)
