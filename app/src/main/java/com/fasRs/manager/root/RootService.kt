@@ -7,15 +7,8 @@ import com.topjohnwu.superuser.ipc.RootService as SuService
 
 class RootService : SuService() {
     private val rootIPC = object : IRootIPC.Stub() {
-        override fun basicTypes(
-            anInt: Int,
-            aLong: Long,
-            aBoolean: Boolean,
-            aFloat: Float,
-            aDouble: Double,
-            aString: String?
-        ) {
-            TODO("Not yet implemented")
+        override fun checkConnection() : String {
+            return "Hello su"
         }
     }
 

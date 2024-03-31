@@ -18,13 +18,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.fasRs.manager.root.RootConnection
 import com.fasRs.manager.ui.theme.FasrsManagerTheme
-import com.topjohnwu.superuser.Shell
+import android.util.Log
 
 
 class MainActivity : ComponentActivity() {
-
     override fun onCreate(savedInstanceState: Bundle?) {
         val rootConnection = RootConnection(applicationContext)
+        val message = rootConnection.sudo().checkConnection()
+        Log.d("su check", message)
 
         super.onCreate(savedInstanceState)
         setContent {
@@ -33,7 +34,6 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background,
                 ) {
-                    rootConnection.sudo()
                     Screen()
                 }
             }
