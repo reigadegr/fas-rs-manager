@@ -1,0 +1,20 @@
+[package]
+name = "backend"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+crate_type = ["staticlib", "cdylib"]
+
+[dependencies]
+anyhow = "1.0.81"
+jni = "0.21.1"
+jni_fn = "0.1.2"
+sys-mount = "3.0.1"
+
+[profile.release]
+overflow-checks = false
+codegen-units = 1
+lto = "fat"
+opt-level = "z"
+strip = true
