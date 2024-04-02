@@ -1,7 +1,6 @@
 package com.fasRs.manager
 
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Box
@@ -16,17 +15,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.fasRs.manager.root.aidlDo
 import com.fasRs.manager.ui.theme.FasrsManagerTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
-        aidlDo(applicationContext) { ipc ->
-            val message = ipc.checkConnection()
-            Toast.makeText(applicationContext, message, Toast.LENGTH_LONG).show()
-            // Log.d("su checked", message)
-        }
-
         super.onCreate(savedInstanceState)
         setContent {
             FasrsManagerTheme {

@@ -1,15 +1,17 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
+    alias(libs.plugins.rustAndroidGradle)
 }
 
 android {
     namespace = "com.fasRs.manager"
     compileSdk = 34
+    ndkVersion = "26.1.0"
 
     defaultConfig {
         applicationId = "com.fasRs.manager"
-        minSdk = 31
+        minSdk = 30
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -20,34 +22,54 @@ android {
         }
     }
 
+    sourceSets {
+        getByName("main") {
+            resources.srcDirs("$buildDir/rustJniLibs/android")
+        }
+    }
+
     buildTypes {
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
+            isShrinkResources = true
+
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro",
             )
         }
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
+
     kotlinOptions {
         jvmTarget = "1.8"
     }
+
     buildFeatures {
         compose = true
         aidl = true
     }
+
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.1"
     }
+
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+}
+
+cargo {
+    module = "src/main/rust/backend"
+    libname = "backend"
+    targets = listOf("arm64")
+    profile = "release"
 }
 
 dependencies {

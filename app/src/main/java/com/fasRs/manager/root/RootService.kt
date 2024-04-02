@@ -6,8 +6,18 @@ import com.topjohnwu.superuser.ipc.RootService as LibSuService
 
 class RootService : LibSuService() {
     private class RootIPC : IRootIPC.Stub() {
-        override fun checkConnection(): String {
-            return "Hello su"
+        private val native = Native()
+
+        override fun isFasRsRunning(): Boolean {
+            return native.isFasRsRunning()
+        }
+
+        override fun getFasRsMode(): String {
+            return native.getFasRsMode()
+        }
+
+        override fun setFasRsMode(mode: String) {
+            return native.setFasRsMode(mode)
         }
     }
 

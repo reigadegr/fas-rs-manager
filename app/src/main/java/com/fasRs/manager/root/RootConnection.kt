@@ -9,35 +9,46 @@ import android.util.Log
 import com.fasRs.manager.IRootIPC
 import com.topjohnwu.superuser.ipc.RootService as LibSuService
 
-fun aidlDo(
+fun getRoot(
     context: Context,
     action: (IRootIPC) -> Unit,
 ) {
-    object : RootConnection(context) {
-        override fun DoIpc(ipc: IRootIPC) {
-            action(ipc)
+    val connection =
+        object : ServiceConnection {
+            override fun onServiceConnected(
+                name: ComponentName,
+                binder: IBinder,
+            ) {
+                val ipc = IRootIPC.Stub.asInterface(binder)
+                action(ipc)
+            }
+
+            override fun onServiceDisconnected(name: ComponentName) {
+            }
         }
-    }
+
+    val intent = Intent(context, RootService().javaClass)
+    LibSuService.bind(intent, connection)
 }
 
 abstract class RootConnection(context: Context) : ServiceConnection {
     init {
-        val intent = Intent(context, RootService().javaClass).addCategory(LibSuService.CATEGORY_DAEMON_MODE)
+        val intent = Intent(context, RootService().javaClass)
         LibSuService.bind(intent, this)
     }
 
-    abstract fun DoIpc(ipc: IRootIPC)
+    fun getInterface(binder: IBinder): IRootIPC {
+        return IRootIPC.Stub.asInterface(binder)
+    }
 
     override fun onServiceConnected(
         name: ComponentName,
         binder: IBinder,
     ) {
         Log.d("libsu", "binded")
-        val ipc = IRootIPC.Stub.asInterface(binder)
-        DoIpc(ipc)
     }
 
-    override fun onServiceDisconnected(p0: ComponentName?) {
+    override fun onServiceDisconnected(name: ComponentName) {
         Log.d("libsu", "unbinded")
     }
 }
