@@ -22,6 +22,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.TextUnit
@@ -53,17 +54,17 @@ fun Title(modifier: Modifier = Modifier) {
         ) {
             Row(
                 modifier =
-                    Modifier
-                        .fillMaxWidth()
-                        .height(130.dp),
+                Modifier
+                    .fillMaxWidth()
+                    .height(130.dp),
                 verticalAlignment = Alignment.CenterVertically,
             ) {
                 TitleIcon(
                     modifier =
-                        Modifier
-                            .width(100.dp)
-                            .height(100.dp)
-                            .padding(25.dp),
+                    Modifier
+                        .width(100.dp)
+                        .height(100.dp)
+                        .padding(25.dp),
                     state = state,
                 )
 
@@ -72,9 +73,9 @@ fun Title(modifier: Modifier = Modifier) {
                 ) {
                     Box(
                         modifier =
-                            Modifier
-                                .fillMaxWidth()
-                                .weight(0.5f),
+                        Modifier
+                            .fillMaxWidth()
+                            .weight(0.5f),
                         contentAlignment = Alignment.BottomStart,
                     ) {
                         TitleStatus(color = MaterialTheme.colorScheme.onTertiary, state = state)
@@ -82,9 +83,9 @@ fun Title(modifier: Modifier = Modifier) {
 
                     Box(
                         modifier =
-                            Modifier
-                                .fillMaxWidth()
-                                .weight(0.5f),
+                        Modifier
+                            .fillMaxWidth()
+                            .weight(0.5f),
                         contentAlignment = Alignment.TopStart,
                     ) {
                         TitleVersion(
@@ -139,11 +140,11 @@ fun TitleVersion(
 ) {
     val text =
         when (state) {
-            State.NEED_ROOT -> "unknown"
+            State.NEED_ROOT -> stringResource(id = R.string.title_version_unknown)
             else -> {
                 val context = LocalContext.current
 
-                var version = "unknown"
+                var version = stringResource(id = R.string.title_version_unknown)
                 getRoot(context) { root ->
                     version = root.getFasRsVersion()
                 }
@@ -169,9 +170,9 @@ fun TitleStatus(
 ) {
     val text =
         when (state) {
-            State.NEED_ROOT -> "未连接到Root服务"
-            State.RUNNING -> "Running"
-            State.NOT_RUNNING -> "Not Running"
+            State.NEED_ROOT -> stringResource(id = R.string.title_status_need_root)
+            State.RUNNING -> stringResource(id = R.string.title_status_running)
+            State.NOT_RUNNING -> stringResource(id = R.string.title_status_not_running)
         }
 
     Text(

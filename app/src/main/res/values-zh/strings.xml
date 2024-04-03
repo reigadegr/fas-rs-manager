@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="title_status_not_running">fas-rs未运行</string>
+    <string name="title_status_running">运行中</string>
+    <string name="title_status_need_root">无Root权限</string>
+    <string name="title_version_unknown">未知版本</string>
+</resources>
