@@ -39,10 +39,10 @@ private fun Screen() {
     Column(modifier = Modifier.fillMaxSize()) {
         Box(
             modifier =
-                Modifier
-                    .fillMaxWidth()
-                    .weight(0.382f)
-                    .align(Alignment.Start),
+            Modifier
+                .fillMaxWidth()
+                .weight(0.382f)
+                .align(Alignment.Start),
         ) {
             Title(
                 Modifier
@@ -53,16 +53,16 @@ private fun Screen() {
 
         Box(
             modifier =
-                Modifier
-                    .fillMaxWidth()
-                    .weight(0.618f)
-                    .align(Alignment.End),
+            Modifier
+                .fillMaxWidth()
+                .weight(0.618f)
+                .align(Alignment.End),
         ) {
             MainCards(
                 modifier =
-                    Modifier
-                        .align(Alignment.BottomCenter)
-                        .padding(25.dp),
+                Modifier
+                    .align(Alignment.BottomCenter)
+                    .padding(25.dp),
             )
         }
     }

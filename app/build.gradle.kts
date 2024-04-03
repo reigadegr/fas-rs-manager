@@ -7,7 +7,7 @@ plugins {
 android {
     namespace = "com.fasRs.manager"
     compileSdk = 34
-    ndkVersion = "26.1.0"
+    ndkVersion = "26.2.11394342"
 
     defaultConfig {
         applicationId = "com.fasRs.manager"
@@ -24,7 +24,7 @@ android {
 
     sourceSets {
         getByName("main") {
-            resources.srcDirs("$buildDir/rustJniLibs/android")
+            resources.srcDirs(layout.buildDirectory.get().dir("rustJniLibs/android"))
         }
     }
 
