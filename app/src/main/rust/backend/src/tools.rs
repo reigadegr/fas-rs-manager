@@ -1,8 +1,8 @@
 use std::{fs, os::unix::fs::PermissionsExt, path::Path};
 
-use jni::sys::{jboolean, JNI_FALSE, JNI_TRUE};
-use sys_mount::{unmount, UnmountFlags}; 
 use anyhow::Result;
+use jni::sys::{jboolean, JNI_FALSE, JNI_TRUE};
+use sys_mount::{unmount, UnmountFlags};
 
 pub const fn as_jboolean(b: bool) -> jboolean {
     match b {

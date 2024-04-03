@@ -9,7 +9,9 @@ class Native {
 
     external fun isFasRsRunning(): Boolean
 
-    external fun getFasRsMode(): String
+    external fun getFasRsMode(): String?
 
     external fun setFasRsMode(mode: String)
+
+    external fun getFasRsVersion(): String?
 }

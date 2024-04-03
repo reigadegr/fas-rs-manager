@@ -1,3 +1,4 @@
+mod powercfg;
 mod tools;
 
 use std::{fs, path::Path, ptr};
@@ -9,7 +10,8 @@ use jni::{
 };
 use jni_fn::jni_fn;
 
-use tools::{unlock_write, as_jboolean};
+use powercfg::PowerConfig;
+use tools::{as_jboolean, unlock_write};
 
 const NODE_DIR: &str = "/dev/fas_rs";
 
@@ -42,6 +44,25 @@ pub fn getFasRsMode(env: JNIEnv, _: JClass) -> jstring {
 pub fn setFasRsMode(mut env: JNIEnv, _: JClass, mode: JString) {
     let target_mode: String = env.get_string(&mode).unwrap().into();
     let mode = Path::new(NODE_DIR).join("mode");
-    
+
     let _ = unlock_write(target_mode, mode);
+}
+
+#[jni_fn("com.fasRs.manager.root.Native")]
+pub fn getFasRsVersion(env: JNIEnv, _: JClass) -> jstring {
+    let powercfg = Path::new("/data/powercfg.json");
+    let Ok(powercfg) = fs::read_to_string(powercfg) else {
+        return ptr::null_mut();
+    };
+
+    let Ok(powercfg) = serde_json::from_str::<PowerConfig>(&powercfg) else {
+        return env.new_string("unknown").unwrap().into_raw();
+    };
+
+    if powercfg.name == "fas-rs" {
+        let version = format!("{}({})", powercfg.version, powercfg.versionCode);
+        env.new_string(version).unwrap().into_raw()
+    } else {
+        env.new_string("unknown").unwrap().into_raw()
+    }
 }

@@ -11,6 +11,8 @@ anyhow = "1.0.81"
 jni = "0.21.1"
 jni_fn = "0.1.2"
 sys-mount = "3.0.1"
+serde = { version = "1.0.171", features = ["derive"] }
+serde_json = "1.0.115"
 
 [profile.release]
 overflow-checks = false

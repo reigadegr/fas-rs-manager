@@ -13,11 +13,15 @@ class RootService : LibSuService() {
         }
 
         override fun getFasRsMode(): String {
-            return native.getFasRsMode()
+            return native.getFasRsMode()?: "unknown"
         }
 
         override fun setFasRsMode(mode: String) {
             return native.setFasRsMode(mode)
+        }
+
+        override fun getFasRsVersion(): String {
+            return native.getFasRsVersion()?: "unknown"
         }
     }
 

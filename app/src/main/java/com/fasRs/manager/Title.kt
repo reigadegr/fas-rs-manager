@@ -18,10 +18,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -37,8 +34,7 @@ import com.fasRs.manager.root.getRoot
 @Composable
 @Preview
 fun Title(modifier: Modifier = Modifier) {
-    val rootState = rememberRootState()
-    val fasRsRunningState = rememberFasRsRunningState()
+    val state = rememberState()
 
     Column(modifier = modifier) {
         Box {
@@ -59,21 +55,12 @@ fun Title(modifier: Modifier = Modifier) {
                         .height(130.dp),
                 verticalAlignment = Alignment.CenterVertically,
             ) {
-                val icon =
-                    if (rootState) {
-                        Icons.Filled.CheckCircle
-                    } else {
-                        Icons.Filled.Close
-                    }
-
-                Icon(
-                    imageVector = icon,
+                TitleIcon(
                     modifier =
                         Modifier
                             .width(100.dp)
                             .height(100.dp)
                             .padding(25.dp),
-                    contentDescription = null,
                 )
 
                 Column(
@@ -86,7 +73,7 @@ fun Title(modifier: Modifier = Modifier) {
                                 .weight(0.5f),
                         contentAlignment = Alignment.BottomStart,
                     ) {
-                        TitleStatus(color = MaterialTheme.colorScheme.onTertiary, rootState = rootState, fasRsRunning = fasRsRunningState)
+                        TitleStatus(color = MaterialTheme.colorScheme.onTertiary, state = state)
                     }
 
                     Box(
@@ -98,7 +85,7 @@ fun Title(modifier: Modifier = Modifier) {
                     ) {
                         TitleVersion(
                             color = MaterialTheme.colorScheme.onSecondary,
-                            rootState = rootState,
+                            state = state,
                         )
                     }
                 }
@@ -108,31 +95,21 @@ fun Title(modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun rememberRootState(): Boolean {
-    var rootState by remember { mutableStateOf(false) }
-    val context = LocalContext.current
-
-    LaunchedEffect(Unit) {
-        getRoot(context) { _ ->
-            rootState = true
+fun TitleIcon(
+    modifier: Modifier = Modifier,
+    state: State = State.RUNNING,
+) {
+    val icon =
+        when (state) {
+            State.RUNNING -> Icons.Filled.CheckCircle
+            else -> Icons.Filled.Close
         }
-    }
 
-    return rootState
-}
-
-@Composable
-fun rememberFasRsRunningState(): Boolean {
-    var fasRsRunning by remember { mutableStateOf(false) }
-    val context = LocalContext.current
-
-    LaunchedEffect(Unit) {
-        getRoot(context) { root ->
-            fasRsRunning = root.isFasRsRunning()
-        }
-    }
-
-    return fasRsRunning
+    Icon(
+        imageVector = icon,
+        modifier = modifier,
+        contentDescription = null,
+    )
 }
 
 @Composable
@@ -154,13 +131,21 @@ fun TitleText(
 fun TitleVersion(
     modifier: Modifier = Modifier,
     color: Color,
-    rootState: Boolean,
+    state: State,
 ) {
     val text =
-        if (rootState) {
-            "version: todo"
-        } else {
-            "version: unknown"
+        when (state) {
+            State.NEED_ROOT -> "unknown"
+            else -> {
+                val context = LocalContext.current
+
+                var version = "unknown"
+                getRoot(context) { root ->
+                    version = root.getFasRsVersion()
+                }
+
+                version
+            }
         }
 
     Text(
@@ -176,18 +161,13 @@ fun TitleVersion(
 fun TitleStatus(
     modifier: Modifier = Modifier,
     color: Color,
-    rootState: Boolean,
-    fasRsRunning: Boolean,
+    state: State,
 ) {
     val text =
-        if (rootState) {
-            if (fasRsRunning) {
-                "Running"
-            } else {
-                "Not Running"
-            }
-        } else {
-            "未连接到Root服务"
+        when (state) {
+            State.NEED_ROOT -> "未连接到Root服务"
+            State.RUNNING -> "Running"
+            State.NOT_RUNNING -> "Not Running"
         }
 
     Text(
