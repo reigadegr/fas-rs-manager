@@ -13,7 +13,7 @@ class RootService : LibSuService() {
         }
 
         override fun getFasRsMode(): String {
-            return native.getFasRsMode()?: "failed"
+            return native.getFasRsMode() ?: "failed"
         }
 
         override fun setFasRsMode(mode: String) {
@@ -21,7 +21,7 @@ class RootService : LibSuService() {
         }
 
         override fun getFasRsVersion(): String {
-            return native.getFasRsVersion()?: "failed"
+            return native.getFasRsVersion() ?: "failed"
         }
     }
 

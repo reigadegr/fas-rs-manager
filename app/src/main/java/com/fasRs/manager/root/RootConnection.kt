@@ -38,10 +38,8 @@ abstract class RootConnection(context: Context) : ServiceConnection {
         name: ComponentName,
         binder: IBinder,
     ) {
-
     }
 
     override fun onServiceDisconnected(name: ComponentName) {
-
     }
 }

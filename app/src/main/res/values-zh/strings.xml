@@ -6,4 +6,8 @@
     <string name="title_version_unknown">未知版本</string>
     <string name="settings_mode">模式</string>
     <string name="setting_mode_unknown_mode">未知</string>
+    <string name="setting_mode_powersave_mode">省电</string>
+    <string name="setting_mode_balance_mode">均衡</string>
+    <string name="setting_mode_performance_mode">性能</string>
+    <string name="setting_mode_fast_mode">极速</string>
 </resources>

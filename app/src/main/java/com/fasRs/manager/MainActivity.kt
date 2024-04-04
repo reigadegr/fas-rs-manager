@@ -4,10 +4,14 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
@@ -36,34 +40,38 @@ class MainActivity : ComponentActivity() {
 @Preview
 @Composable
 private fun Screen() {
-    Column(modifier = Modifier.fillMaxSize()) {
-        Box(
-            modifier =
-            Modifier
-                .fillMaxWidth()
-                .weight(0.382f)
-                .align(Alignment.Start),
-        ) {
-            Title(
-                Modifier
-                    .align(Alignment.BottomCenter)
-                    .padding(25.dp),
-            )
+    LazyColumn(modifier = Modifier.fillMaxHeight().width(100.dp)) {
+        item {
+            Spacer(modifier = Modifier.height(75.dp))
         }
 
-        Box(
-            modifier =
-            Modifier
-                .fillMaxWidth()
-                .weight(0.618f)
-                .align(Alignment.End),
-        ) {
-            SettingCards(
+        item {
+            Box(
                 modifier =
-                Modifier
-                    .align(Alignment.BottomCenter)
-                    .padding(25.dp),
-            )
+                    Modifier
+                        .fillMaxWidth(),
+            ) {
+                Title(
+                    Modifier
+                        .align(Alignment.BottomCenter)
+                        .padding(25.dp),
+                )
+            }
+        }
+
+        item {
+            Box(
+                modifier =
+                    Modifier
+                        .fillMaxWidth(),
+            ) {
+                SettingCards(
+                    modifier =
+                        Modifier
+                            .align(Alignment.BottomCenter)
+                            .padding(25.dp),
+                )
+            }
         }
     }
 }

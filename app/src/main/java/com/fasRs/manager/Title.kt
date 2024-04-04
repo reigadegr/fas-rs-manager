@@ -42,10 +42,11 @@ fun Title(modifier: Modifier = Modifier) {
 
         Spacer(modifier = Modifier.height(25.dp))
 
-        val backgroundColor = when (state) {
-            State.RUNNING -> MaterialTheme.colorScheme.primary
-            else -> MaterialTheme.colorScheme.error
-        }
+        val backgroundColor =
+            when (state) {
+                State.RUNNING -> MaterialTheme.colorScheme.primary
+                else -> MaterialTheme.colorScheme.error
+            }
 
         Surface(
             modifier = Modifier.fillMaxWidth(),
@@ -54,17 +55,17 @@ fun Title(modifier: Modifier = Modifier) {
         ) {
             Row(
                 modifier =
-                Modifier
-                    .fillMaxWidth()
-                    .height(130.dp),
+                    Modifier
+                        .fillMaxWidth()
+                        .height(130.dp),
                 verticalAlignment = Alignment.CenterVertically,
             ) {
                 TitleIcon(
                     modifier =
-                    Modifier
-                        .width(100.dp)
-                        .height(100.dp)
-                        .padding(25.dp),
+                        Modifier
+                            .width(100.dp)
+                            .height(100.dp)
+                            .padding(25.dp),
                     state = state,
                 )
 
@@ -73,9 +74,9 @@ fun Title(modifier: Modifier = Modifier) {
                 ) {
                     Box(
                         modifier =
-                        Modifier
-                            .fillMaxWidth()
-                            .weight(0.5f),
+                            Modifier
+                                .fillMaxWidth()
+                                .weight(0.5f),
                         contentAlignment = Alignment.BottomStart,
                     ) {
                         TitleStatus(color = MaterialTheme.colorScheme.onTertiary, state = state)
@@ -83,9 +84,9 @@ fun Title(modifier: Modifier = Modifier) {
 
                     Box(
                         modifier =
-                        Modifier
-                            .fillMaxWidth()
-                            .weight(0.5f),
+                            Modifier
+                                .fillMaxWidth()
+                                .weight(0.5f),
                         contentAlignment = Alignment.TopStart,
                     ) {
                         TitleVersion(
@@ -140,8 +141,7 @@ fun TitleVersion(
 ) {
     val text =
         when (state) {
-            State.NEED_ROOT -> stringResource(id = R.string.title_version_unknown)
-            else -> {
+            State.RUNNING -> {
                 val context = LocalContext.current
 
                 var version = stringResource(id = R.string.title_version_unknown)
@@ -151,6 +151,7 @@ fun TitleVersion(
 
                 version
             }
+            else -> stringResource(id = R.string.title_version_unknown)
         }
 
     Text(

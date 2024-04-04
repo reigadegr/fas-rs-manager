@@ -23,18 +23,19 @@ import androidx.compose.ui.unit.dp
 fun SettingCards(modifier: Modifier = Modifier) {
     Surface(
         modifier =
-        modifier
-            .fillMaxWidth()
-            .height(500.dp),
+            modifier
+                .fillMaxWidth()
+                .height(500.dp),
         border = BorderStroke(2.dp, MaterialTheme.colorScheme.secondary),
         shape = RoundedCornerShape(20.dp),
         color = MaterialTheme.colorScheme.onSecondary,
     ) {
         Column(modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.Top) {
             Spacer(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(5.dp)
+                modifier =
+                    Modifier
+                        .fillMaxWidth()
+                        .height(5.dp),
             )
 
             ModeSetting(modifier = Modifier.weight(0.25f))
@@ -43,9 +44,10 @@ fun SettingCards(modifier: Modifier = Modifier) {
             SettingCard(modifier = Modifier.weight(0.25f))
 
             Spacer(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(5.dp)
+                modifier =
+                    Modifier
+                        .fillMaxWidth()
+                        .height(5.dp),
             )
         }
     }
@@ -55,15 +57,19 @@ fun SettingCards(modifier: Modifier = Modifier) {
 @Preview(heightDp = 135)
 fun SettingCard(
     modifier: Modifier = Modifier,
-    content: @Composable () -> Unit = {}
+    content: @Composable () -> Unit = {},
 ) {
     Card(
         modifier =
-        modifier
-            .fillMaxWidth()
-            .padding(10.dp),
+            modifier
+                .fillMaxWidth()
+                .padding(10.dp),
+        elevation =
+            CardDefaults.cardElevation(
+                defaultElevation = 10.dp,
+            ),
         shape = RoundedCornerShape(20.dp),
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primaryContainer)
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primaryContainer),
     ) {
         content()
     }

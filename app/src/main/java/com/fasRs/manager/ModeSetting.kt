@@ -19,6 +19,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.fasRs.manager.root.getRoot
@@ -27,16 +28,16 @@ import kotlinx.coroutines.delay
 @Composable
 @Preview(heightDp = 130)
 fun ModeSetting(modifier: Modifier = Modifier) {
-    val unknownMode = stringResource(id = R.string.setting_mode_unknown_mode)
     var runningMode by remember {
-        mutableStateOf(unknownMode)
+        mutableStateOf(Mode.UNKNOWN)
     }
 
     val context = LocalContext.current
     LaunchedEffect(Unit) {
         while (true) {
             getRoot(context) { root ->
-                runningMode = root.fasRsMode
+                val newMode = root.fasRsMode.trim()
+                runningMode = Mode.parse(newMode)
             }
 
             delay(1000)
@@ -47,22 +48,31 @@ fun ModeSetting(modifier: Modifier = Modifier) {
         Row(
             modifier = Modifier.fillMaxSize(),
             horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
+            verticalAlignment = Alignment.CenterVertically,
         ) {
+            val displayMode =
+                when (runningMode) {
+                    Mode.POWERSAVE -> stringResource(id = R.string.setting_mode_powersave_mode)
+                    Mode.BALANCE -> stringResource(id = R.string.setting_mode_balance_mode)
+                    Mode.PERFORMANCE -> stringResource(id = R.string.setting_mode_performance_mode)
+                    Mode.FAST -> stringResource(id = R.string.setting_mode_fast_mode)
+                    Mode.UNKNOWN -> stringResource(id = R.string.setting_mode_unknown_mode)
+                }
+
             Text(
                 modifier = Modifier.padding(25.dp),
-                text = "${stringResource(id = R.string.settings_mode)}: $runningMode",
+                text = "${stringResource(id = R.string.settings_mode)}: $displayMode",
                 style = MaterialTheme.typography.headlineSmall,
-                color = MaterialTheme.colorScheme.onPrimaryContainer
+                color = MaterialTheme.colorScheme.onPrimaryContainer,
+                textAlign = TextAlign.Center,
             )
 
             Icon(
                 modifier = Modifier.padding(25.dp),
                 imageVector = Icons.Default.PlayArrow,
                 contentDescription = null,
-                tint = MaterialTheme.colorScheme.onPrimaryContainer
+                tint = MaterialTheme.colorScheme.onPrimaryContainer,
             )
         }
     }
 }
-
