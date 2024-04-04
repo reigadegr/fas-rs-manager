@@ -4,7 +4,7 @@
     <string name="title_status_running">Running</string>
     <string name="title_status_need_root">Root unaccessable</string>
     <string name="title_version_unknown">unknown version</string>
-    <string name="settings_mode">Mode</string>
+    <string name="settings_current_mode">Current Mode</string>
     <string name="setting_mode_unknown_mode">unknown</string>
     <string name="setting_mode_powersave_mode">powersave</string>
     <string name="setting_mode_balance_mode">balance</string>

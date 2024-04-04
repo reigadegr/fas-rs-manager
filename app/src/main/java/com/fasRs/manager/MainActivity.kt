@@ -14,13 +14,12 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -35,19 +34,16 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background,
                 ) {
-                    var currentScreen by remember {
-                        mutableStateOf(Destinations.MainScreen)
-                    }
                     val navController = rememberNavController()
                     NavHost(
                         navController = navController,
-                        startDestination = Destinations.MainScreen.name,
+                        startDestination = Destinations.MainScreen,
                     ) {
-                        composable(route = Destinations.MainScreen.name) {
-                            MainScreen()
+                        composable(route = Destinations.MainScreen) {
+                            MainScreen(navController = navController)
                         }
 
-                        composable(route = Destinations.ModeSetting.name) {
+                        composable(route = Destinations.ModeSetting) {
                             ModeSetting()
                         }
                     }
@@ -60,7 +56,7 @@ class MainActivity : ComponentActivity() {
 @Preview
 @Preview(locale = "zh")
 @Composable
-private fun MainScreen() {
+private fun MainScreen(navController: NavController? = null) {
     LazyColumn(
         modifier =
             Modifier
@@ -95,6 +91,7 @@ private fun MainScreen() {
                         Modifier
                             .align(Alignment.BottomCenter)
                             .padding(25.dp),
+                    navController = navController,
                 )
             }
         }

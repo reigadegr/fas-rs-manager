@@ -1,6 +1,6 @@
 package com.fasRs.manager
 
-enum class Destinations {
-    MainScreen,
-    ModeSetting,
+object Destinations {
+    const val MainScreen = "MainScreen"
+    const val ModeSetting = "ModeSetting"
 }

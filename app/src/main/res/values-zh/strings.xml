@@ -4,7 +4,7 @@
     <string name="title_status_running">运行中</string>
     <string name="title_status_need_root">无Root权限</string>
     <string name="title_version_unknown">未知版本</string>
-    <string name="settings_mode">模式</string>
+    <string name="settings_current_mode">当前模式</string>
     <string name="setting_mode_unknown_mode">未知</string>
     <string name="setting_mode_powersave_mode">省电</string>
     <string name="setting_mode_balance_mode">均衡</string>

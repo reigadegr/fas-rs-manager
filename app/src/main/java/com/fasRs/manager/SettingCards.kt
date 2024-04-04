@@ -17,10 +17,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 
 @Composable
 @Preview
-fun SettingCards(modifier: Modifier = Modifier) {
+fun SettingCards(
+    modifier: Modifier = Modifier,
+    navController: NavController? = null,
+) {
     Surface(
         modifier =
             modifier
@@ -39,7 +43,7 @@ fun SettingCards(modifier: Modifier = Modifier) {
                         .height(5.dp),
             )
 
-            ModeSettingCard(modifier = Modifier.weight(0.25f))
+            ModeSettingCard(modifier = Modifier.weight(0.25f), navController = navController)
             SettingCard(modifier = Modifier.weight(0.25f))
             SettingCard(modifier = Modifier.weight(0.25f))
             SettingCard(modifier = Modifier.weight(0.25f))

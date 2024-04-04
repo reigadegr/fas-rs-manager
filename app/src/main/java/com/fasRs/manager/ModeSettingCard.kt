@@ -31,8 +31,16 @@ import kotlinx.coroutines.delay
 @Composable
 @Preview(heightDp = 130)
 @Preview(heightDp = 130, locale = "zh")
-fun ModeSettingCard(modifier: Modifier = Modifier, navController: NavController? = null) {
-    SettingCard(modifier = modifier.clickable {  }) {
+fun ModeSettingCard(
+    modifier: Modifier = Modifier,
+    navController: NavController? = null,
+) {
+    SettingCard(
+        modifier =
+            modifier.clickable {
+                navController?.navigate(Destinations.ModeSetting)
+            },
+    ) {
         Row(
             modifier = Modifier.fillMaxSize(),
             horizontalArrangement = Arrangement.SpaceBetween,
@@ -65,7 +73,7 @@ fun ModeSettingCard(modifier: Modifier = Modifier, navController: NavController?
 
             Text(
                 modifier = Modifier.padding(25.dp),
-                text = "${stringResource(id = R.string.settings_mode)}: $displayMode",
+                text = "${stringResource(id = R.string.settings_current_mode)}: $displayMode",
                 style = MaterialTheme.typography.headlineSmall,
                 color = MaterialTheme.colorScheme.onPrimaryContainer,
                 textAlign = TextAlign.Center,
