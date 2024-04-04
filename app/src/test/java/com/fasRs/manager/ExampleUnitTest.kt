@@ -1,3 +1,5 @@
+@file:Suppress("ktlint:standard:no-wildcard-imports")
+
 package com.fasRs.manager
 
 import org.junit.Assert.*

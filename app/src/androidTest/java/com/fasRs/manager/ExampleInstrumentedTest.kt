@@ -1,3 +1,5 @@
+@file:Suppress("ktlint:standard:no-wildcard-imports")
+
 package com.fasRs.manager
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
