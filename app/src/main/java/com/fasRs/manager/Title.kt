@@ -33,8 +33,6 @@ import com.fasRs.manager.root.getRoot
 @Composable
 @Preview
 fun Title(modifier: Modifier = Modifier) {
-    val state = rememberState()
-
     Column(modifier = modifier) {
         Box {
             TitleText(modifier = Modifier, color = MaterialTheme.colorScheme.primary)
@@ -42,6 +40,7 @@ fun Title(modifier: Modifier = Modifier) {
 
         Spacer(modifier = Modifier.height(25.dp))
 
+        val state = rememberState()
         val backgroundColor =
             when (state) {
                 State.RUNNING -> MaterialTheme.colorScheme.primary

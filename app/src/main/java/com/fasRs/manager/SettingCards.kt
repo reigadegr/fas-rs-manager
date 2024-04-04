@@ -39,7 +39,7 @@ fun SettingCards(modifier: Modifier = Modifier) {
                         .height(5.dp),
             )
 
-            ModeSetting(modifier = Modifier.weight(0.25f))
+            ModeSettingCard(modifier = Modifier.weight(0.25f))
             SettingCard(modifier = Modifier.weight(0.25f))
             SettingCard(modifier = Modifier.weight(0.25f))
             SettingCard(modifier = Modifier.weight(0.25f))
