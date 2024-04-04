@@ -14,6 +14,5 @@ fun ModeSetting() {
             Modifier
                 .fillMaxSize(),
     ) {
-        
     }
 }
