@@ -58,7 +58,7 @@ private fun Screen() {
                 .weight(0.618f)
                 .align(Alignment.End),
         ) {
-            MainCards(
+            SettingCards(
                 modifier =
                 Modifier
                     .align(Alignment.BottomCenter)
