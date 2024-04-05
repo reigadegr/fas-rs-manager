@@ -19,6 +19,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.fasRs.manager.ui.theme.FasrsManagerTheme
 import com.ramcosta.composedestinations.DestinationsNavHost
 import com.ramcosta.composedestinations.annotation.Destination
@@ -46,7 +47,7 @@ class MainActivity : ComponentActivity() {
 @Preview(locale = "zh")
 @Composable
 @Destination<RootGraph>(start = true)
-fun MainScreen(navController: DestinationsNavigator? = null) {
+fun MainScreen(navController: NavController? = null) {
     LazyColumn(
         modifier =
             Modifier

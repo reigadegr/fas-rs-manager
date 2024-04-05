@@ -24,9 +24,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.fasRs.manager.root.getRoot
 import com.ramcosta.composedestinations.generated.destinations.ModeSettingDestination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
+import com.ramcosta.composedestinations.navigation.navigate
 import kotlinx.coroutines.delay
 
 @Preview(heightDp = 130)
@@ -34,7 +36,7 @@ import kotlinx.coroutines.delay
 @Composable
 fun ModeSettingCard(
     modifier: Modifier = Modifier,
-    navController: DestinationsNavigator? = null,
+    navController: NavController? = null,
 ) {
     SettingCard(
         modifier =
