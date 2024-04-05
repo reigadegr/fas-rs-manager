@@ -3,15 +3,13 @@ package com.fasRs.manager.root
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.drawable.BitmapDrawable
 import com.fasRs.manager.IRootIPC
 import com.fasRs.manager.PackageInfo
 import com.fasRs.manager.appIconToBitmap
 import com.topjohnwu.superuser.ipc.RootService as LibSuService
 
 class RootService : LibSuService() {
-    private class RootIPC(context: Context) : IRootIPC.Stub() {
-        private val context = context
+    private class RootIPC(private val context: Context) : IRootIPC.Stub() {
         private val native = Native()
 
         override fun isFasRsRunning(): Boolean {
@@ -31,7 +29,7 @@ class RootService : LibSuService() {
         }
 
         override fun getAllPackages(): ArrayList<PackageInfo> {
-            val packageManager = context.getPackageManager()
+            val packageManager = context.packageManager
             val infos = packageManager.getInstalledApplications(PackageManager.GET_META_DATA)
             val list =
                 infos.map { info ->
