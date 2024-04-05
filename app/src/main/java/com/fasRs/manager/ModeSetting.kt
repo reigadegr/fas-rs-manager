@@ -20,6 +20,11 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -35,6 +40,7 @@ import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.annotation.RootGraph
 import com.ramcosta.composedestinations.generated.NavGraphs
 import com.ramcosta.composedestinations.navigation.navigate
+import kotlinx.coroutines.delay
 
 @Composable
 @Preview
@@ -64,7 +70,18 @@ fun ModeSetting(navController: NavController? = null) {
         }
     }
 
-    val appList: ArrayList<PackageInfo> = getAllPackages()
+    val context = LocalContext.current
+    var appList by remember {
+        mutableStateOf(getAllPackages(context))
+    }
+
+    LaunchedEffect(Unit) {
+        while (true) {
+            appList = getAllPackages(context)
+            delay(1000)
+        }
+    }
+
     LazyColumn(
         modifier =
             Modifier
@@ -77,7 +94,7 @@ fun ModeSetting(navController: NavController? = null) {
 }
 
 @Composable
-@Preview(heightDp = 135)
+@Preview(heightDp = 150)
 fun AppCard(
     modifier: Modifier = Modifier,
     packageInfo: PackageInfo? = null,
@@ -86,7 +103,7 @@ fun AppCard(
         modifier =
             modifier
                 .fillMaxWidth()
-                .padding(10.dp),
+                .padding(25.dp),
         elevation =
             CardDefaults.cardElevation(
                 defaultElevation = 5.dp,
@@ -122,7 +139,7 @@ fun AppCard(
             }
 
             Icon(
-                modifier = Modifier.padding(25.dp),
+                modifier = Modifier.padding(25.dp).size(75.dp),
                 bitmap = icon!!,
                 contentDescription = null,
                 tint = Color.Unspecified,
@@ -133,14 +150,14 @@ fun AppCard(
                     text = appName!!,
                     style = MaterialTheme.typography.titleLarge,
                     color = MaterialTheme.colorScheme.secondary,
-                    textAlign = TextAlign.Center,
+                    textAlign = TextAlign.Right,
                 )
 
                 Text(
                     text = pkgName!!,
                     style = MaterialTheme.typography.titleSmall,
                     color = MaterialTheme.colorScheme.secondary,
-                    textAlign = TextAlign.Center,
+                    textAlign = TextAlign.Right,
                 )
             }
         }

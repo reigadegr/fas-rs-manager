@@ -1,15 +1,13 @@
 package com.fasRs.manager
 
+import android.content.Context
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.drawable.Drawable
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.platform.LocalContext
 
-@Composable
-fun getAllPackages(): ArrayList<PackageInfo> {
-    val packageManager = LocalContext.current.packageManager
+fun getAllPackages(context: Context): ArrayList<PackageInfo> {
+    val packageManager = context.packageManager
     val infos = packageManager.getInstalledApplications(PackageManager.GET_META_DATA)
     val list =
         infos.map { info ->
