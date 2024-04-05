@@ -19,11 +19,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
 import com.fasRs.manager.ui.theme.FasrsManagerTheme
+import com.ramcosta.composedestinations.DestinationsNavHost
+import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.annotation.RootGraph
+import com.ramcosta.composedestinations.generated.NavGraphs
+import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,19 +35,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background,
                 ) {
-                    val navController = rememberNavController()
-                    NavHost(
-                        navController = navController,
-                        startDestination = Destinations.MainScreen,
-                    ) {
-                        composable(route = Destinations.MainScreen) {
-                            MainScreen(navController = navController)
-                        }
-
-                        composable(route = Destinations.ModeSetting) {
-                            ModeSetting()
-                        }
-                    }
+                    DestinationsNavHost(navGraph = NavGraphs.root)
                 }
             }
         }
@@ -56,7 +45,8 @@ class MainActivity : ComponentActivity() {
 @Preview
 @Preview(locale = "zh")
 @Composable
-private fun MainScreen(navController: NavController? = null) {
+@Destination<RootGraph>(start = true)
+fun MainScreen(navController: DestinationsNavigator? = null) {
     LazyColumn(
         modifier =
             Modifier

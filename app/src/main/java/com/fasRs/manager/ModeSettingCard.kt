@@ -24,21 +24,22 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
 import com.fasRs.manager.root.getRoot
+import com.ramcosta.composedestinations.generated.destinations.ModeSettingDestination
+import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import kotlinx.coroutines.delay
 
-@Composable
 @Preview(heightDp = 130)
 @Preview(heightDp = 130, locale = "zh")
+@Composable
 fun ModeSettingCard(
     modifier: Modifier = Modifier,
-    navController: NavController? = null,
+    navController: DestinationsNavigator? = null,
 ) {
     SettingCard(
         modifier =
             modifier.clickable {
-                navController?.navigate(Destinations.ModeSetting)
+                navController?.navigate(ModeSettingDestination)
             },
     ) {
         Row(
@@ -80,7 +81,10 @@ fun ModeSettingCard(
             )
 
             Icon(
-                modifier = Modifier.padding(25.dp).size(30.dp),
+                modifier =
+                    Modifier
+                        .padding(25.dp)
+                        .size(30.dp),
                 imageVector = Icons.Default.PlayArrow,
                 contentDescription = null,
                 tint = MaterialTheme.colorScheme.onPrimaryContainer,
