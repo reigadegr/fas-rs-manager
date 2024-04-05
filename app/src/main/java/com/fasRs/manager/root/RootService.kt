@@ -2,10 +2,7 @@ package com.fasRs.manager.root
 
 import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
 import com.fasRs.manager.IRootIPC
-import com.fasRs.manager.PackageInfo
-import com.fasRs.manager.appIconToBitmap
 import com.topjohnwu.superuser.ipc.RootService as LibSuService
 
 class RootService : LibSuService() {
@@ -26,21 +23,6 @@ class RootService : LibSuService() {
 
         override fun getFasRsVersion(): String {
             return native.getFasRsVersion() ?: "failed"
-        }
-
-        override fun getAllPackages(): ArrayList<PackageInfo> {
-            val packageManager = context.packageManager
-            val infos = packageManager.getInstalledApplications(PackageManager.GET_META_DATA)
-            val list =
-                infos.map { info ->
-                    val appName = info.loadLabel(packageManager).toString()
-                    val pkgName = info.packageName
-                    val icon = appIconToBitmap(info.loadIcon(packageManager))
-
-                    PackageInfo(appName = appName, pkgName = pkgName, icon = icon)
-                }
-
-            return ArrayList(list)
         }
     }
 

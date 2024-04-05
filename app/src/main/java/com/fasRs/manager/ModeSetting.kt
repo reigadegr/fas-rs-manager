@@ -31,7 +31,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.content.res.ResourcesCompat
 import androidx.navigation.NavController
-import com.fasRs.manager.root.getRoot
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.annotation.RootGraph
 import com.ramcosta.composedestinations.generated.NavGraphs
@@ -65,18 +64,13 @@ fun ModeSetting(navController: NavController? = null) {
         }
     }
 
-    val context = LocalContext.current
-    var appList: ArrayList<PackageInfo>? = null
-    getRoot(context) { root ->
-        appList = root.allPackages as ArrayList<PackageInfo>
-    }
-
+    val appList: ArrayList<PackageInfo> = getAllPackages()
     LazyColumn(
         modifier =
             Modifier
                 .fillMaxWidth(),
     ) {
-        items(appList!!) { item ->
+        items(appList) { item ->
             AppCard(packageInfo = item)
         }
     }
