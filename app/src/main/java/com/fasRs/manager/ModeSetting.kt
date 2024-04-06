@@ -25,6 +25,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
@@ -51,9 +52,6 @@ import com.ramcosta.composedestinations.navigation.navigate
 @Preview
 @Destination<RootGraph>
 fun ModeSetting(navController: NavController? = null) {
-    val context = LocalContext.current
-    val appList = getAllPackages(context)
-
     Column(modifier = Modifier.fillMaxSize()) {
         Button(
             modifier =
@@ -78,6 +76,16 @@ fun ModeSetting(navController: NavController? = null) {
             )
         }
 
+        var appList =
+            remember {
+                mutableStateListOf<PackageInfo>()
+            }
+
+        val context = LocalContext.current
+        LaunchedEffect(Unit) {
+            appList = getAllPackages(context).toCollection(appList)
+        }
+
         var showList =
             remember {
                 mutableStateListOf<PackageInfo>()
@@ -89,9 +97,10 @@ fun ModeSetting(navController: NavController? = null) {
                     .fillMaxWidth()
                     .padding(start = 25.dp, end = 25.dp),
             onSearch = { pkgOrName ->
-                showList = appList.filter { info ->
-                    info.appName.contains(pkgOrName) or info.pkgName.contains(pkgOrName)
-                }.toCollection(showList)
+                showList =
+                    appList.filter { info ->
+                        info.appName.contains(pkgOrName) or info.pkgName.contains(pkgOrName)
+                    }.toCollection(showList)
             },
         )
 
