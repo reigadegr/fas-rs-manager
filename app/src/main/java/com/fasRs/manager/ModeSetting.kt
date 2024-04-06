@@ -40,46 +40,18 @@ import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.annotation.RootGraph
 import com.ramcosta.composedestinations.generated.NavGraphs
 import com.ramcosta.composedestinations.navigation.navigate
-import kotlinx.coroutines.delay
 
 @Composable
 @Preview
 @Destination<RootGraph>
 fun ModeSetting(navController: NavController? = null) {
-    Column(modifier = Modifier.fillMaxSize()) {
-        Button(
-            modifier =
-                Modifier
-                    .padding(25.dp)
-                    .size(75.dp),
-            colors =
-                ButtonDefaults.buttonColors(
-                    containerColor = MaterialTheme.colorScheme.background,
-                    contentColor = MaterialTheme.colorScheme.primary,
-                ),
-            shape = RoundedCornerShape(25.dp),
-            onClick = {
-                navController?.navigate(NavGraphs.root)
-            },
-        ) {
-            Icon(
-                modifier = Modifier.fillMaxSize(),
-                imageVector = Icons.Default.ArrowBack,
-                contentDescription = null,
-            )
-        }
+    var appList by remember {
+        mutableStateOf(ArrayList<PackageInfo>())
     }
 
     val context = LocalContext.current
-    var appList by remember {
-        mutableStateOf(getAllPackages(context))
-    }
-
     LaunchedEffect(Unit) {
-        while (true) {
-            appList = getAllPackages(context)
-            delay(1000)
-        }
+        appList = getAllPackages(context)
     }
 
     LazyColumn(
@@ -87,6 +59,30 @@ fun ModeSetting(navController: NavController? = null) {
             Modifier
                 .fillMaxWidth(),
     ) {
+        item {
+            Button(
+                modifier =
+                    Modifier
+                        .padding(25.dp)
+                        .size(75.dp),
+                colors =
+                    ButtonDefaults.buttonColors(
+                        containerColor = MaterialTheme.colorScheme.background,
+                        contentColor = MaterialTheme.colorScheme.primary,
+                    ),
+                shape = RoundedCornerShape(25.dp),
+                onClick = {
+                    navController?.navigate(NavGraphs.root)
+                },
+            ) {
+                Icon(
+                    modifier = Modifier.fillMaxSize(),
+                    imageVector = Icons.Default.ArrowBack,
+                    contentDescription = null,
+                )
+            }
+        }
+
         items(appList) { item ->
             AppCard(packageInfo = item)
         }
