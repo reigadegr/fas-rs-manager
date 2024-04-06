@@ -21,11 +21,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -47,14 +42,8 @@ import com.ramcosta.composedestinations.navigation.navigate
 @Preview
 @Destination<RootGraph>
 fun ModeSetting(navController: NavController? = null) {
-    var appList by remember {
-        mutableStateOf(ArrayList<PackageInfo>())
-    }
-
     val context = LocalContext.current
-    LaunchedEffect(Unit) {
-        appList = getAllPackages(context)
-    }
+    val appList = getAllPackages(context)
 
     LazyColumn(
         modifier =
@@ -85,7 +74,9 @@ fun ModeSetting(navController: NavController? = null) {
             }
         }
 
-        items(appList) { item ->
+        items(items = appList, key = { item ->
+            item.pkgName
+        }) { item ->
             AppCard(modifier = Modifier.height(150.dp), packageInfo = item)
         }
     }
