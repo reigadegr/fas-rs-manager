@@ -1,12 +1,11 @@
 package com.fasRs.manager.root
 
-import android.content.Context
 import android.content.Intent
 import com.fasRs.manager.IRootIPC
 import com.topjohnwu.superuser.ipc.RootService as LibSuService
 
 class RootService : LibSuService() {
-    private class RootIPC(private val context: Context) : IRootIPC.Stub() {
+    private class RootIPC : IRootIPC.Stub() {
         private val native = Native()
 
         override fun isFasRsRunning(): Boolean {
@@ -27,7 +26,6 @@ class RootService : LibSuService() {
     }
 
     override fun onBind(intent: Intent): IRootIPC.Stub {
-        val context = applicationContext
-        return RootIPC(context)
+        return RootIPC()
     }
 }
