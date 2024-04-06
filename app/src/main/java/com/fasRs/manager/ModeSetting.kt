@@ -3,16 +3,19 @@ package com.fasRs.manager
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
@@ -20,7 +23,13 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -45,41 +54,89 @@ fun ModeSetting(navController: NavController? = null) {
     val context = LocalContext.current
     val appList = getAllPackages(context)
 
-    LazyColumn(
-        modifier =
-            Modifier
-                .fillMaxWidth(),
-    ) {
-        item {
-            Button(
-                modifier =
-                    Modifier
-                        .padding(25.dp)
-                        .size(75.dp),
-                colors =
-                    ButtonDefaults.buttonColors(
-                        containerColor = MaterialTheme.colorScheme.background,
-                        contentColor = MaterialTheme.colorScheme.primary,
-                    ),
-                shape = RoundedCornerShape(20.dp),
-                onClick = {
-                    navController?.navigate(NavGraphs.root)
-                },
-            ) {
-                Icon(
-                    modifier = Modifier.fillMaxSize(),
-                    imageVector = Icons.Default.ArrowBack,
-                    contentDescription = null,
-                )
-            }
+    Column(modifier = Modifier.fillMaxSize()) {
+        Button(
+            modifier =
+                Modifier
+                    .padding(25.dp)
+                    .size(65.dp),
+            colors =
+                ButtonDefaults.buttonColors(
+                    containerColor = MaterialTheme.colorScheme.background,
+                    contentColor = MaterialTheme.colorScheme.primary,
+                ),
+            onClick = {
+                navController?.navigate(direction = NavGraphs.root) {
+                    launchSingleTop = true
+                }
+            },
+        ) {
+            Icon(
+                modifier = Modifier.fillMaxSize(),
+                imageVector = Icons.Default.ArrowBack,
+                contentDescription = null,
+            )
         }
 
-        items(items = appList, key = { item ->
-            item.pkgName
-        }) { item ->
-            AppCard(modifier = Modifier.height(150.dp), packageInfo = item)
+        var showList =
+            remember {
+                mutableStateListOf<PackageInfo>()
+            }
+
+        SearchBar(
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .padding(start = 25.dp, end = 25.dp),
+            onSearch = { pkgOrName ->
+                showList = appList.filter { info ->
+                    info.appName.contains(pkgOrName) or info.pkgName.contains(pkgOrName)
+                }.toCollection(showList)
+            },
+        )
+
+        LazyColumn(
+            modifier =
+                Modifier
+                    .fillMaxWidth(),
+        ) {
+            items(items = showList, key = { item ->
+                item.pkgName
+            }) { item ->
+                AppCard(modifier = Modifier.height(150.dp), packageInfo = item)
+            }
         }
     }
+}
+
+@Composable
+@Preview
+fun SearchBar(
+    modifier: Modifier = Modifier,
+    onSearch: (String) -> Unit = {},
+) {
+    var text by remember {
+        mutableStateOf("")
+    }
+
+    TextField(
+        modifier = modifier,
+        value = text,
+        onValueChange = { newText ->
+            text = newText
+        },
+        label = {
+            Row(horizontalArrangement = Arrangement.Center) {
+                Icon(imageVector = Icons.Default.Search, contentDescription = null)
+                Spacer(modifier = Modifier.width(5.dp))
+                Text(
+                    text = stringResource(id = R.string.searchbar_label_package),
+                    textAlign = TextAlign.Center,
+                )
+            }
+        },
+        singleLine = true,
+    )
 }
 
 @Composable

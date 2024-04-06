@@ -10,4 +10,5 @@
     <string name="setting_mode_balance_mode">balance</string>
     <string name="setting_mode_performance_mode">performance</string>
     <string name="setting_mode_fast_mode">fast</string>
+    <string name="searchbar_label_package">package</string>
 </resources>
