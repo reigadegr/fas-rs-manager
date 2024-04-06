@@ -75,6 +75,7 @@ cargo {
 }
 
 dependencies {
+    implementation(libs.androidx.paging.compose)
     implementation(libs.compose.destinations.core)
     ksp(libs.compose.destinations.ksp)
     implementation(libs.libsu.core)

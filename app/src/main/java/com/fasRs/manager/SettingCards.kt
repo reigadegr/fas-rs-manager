@@ -11,10 +11,12 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Divider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -32,7 +34,7 @@ fun SettingCards(
                 .height(500.dp),
         border = BorderStroke(2.dp, MaterialTheme.colorScheme.secondary),
         shape = RoundedCornerShape(20.dp),
-        color = MaterialTheme.colorScheme.onSecondary,
+        color = MaterialTheme.colorScheme.primaryContainer,
         shadowElevation = 10.dp,
     ) {
         Column(modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.Top) {
@@ -44,8 +46,11 @@ fun SettingCards(
             )
 
             ModeSettingCard(modifier = Modifier.weight(0.25f), navController = navController)
+            Divider(modifier = Modifier.padding(horizontal = 25.dp))
             SettingCard(modifier = Modifier.weight(0.25f))
+            Divider(modifier = Modifier.padding(horizontal = 25.dp))
             SettingCard(modifier = Modifier.weight(0.25f))
+            Divider(modifier = Modifier.padding(horizontal = 25.dp))
             SettingCard(modifier = Modifier.weight(0.25f))
 
             Spacer(
@@ -69,12 +74,8 @@ fun SettingCard(
             modifier
                 .fillMaxWidth()
                 .padding(10.dp),
-        elevation =
-            CardDefaults.cardElevation(
-                defaultElevation = 5.dp,
-            ),
         shape = RoundedCornerShape(20.dp),
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primaryContainer),
+        colors = CardDefaults.cardColors(containerColor = Color.Unspecified),
     ) {
         content()
     }
