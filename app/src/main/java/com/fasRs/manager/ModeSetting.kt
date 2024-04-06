@@ -133,6 +133,7 @@ fun SearchBar(
         value = text,
         onValueChange = { newText ->
             text = newText
+            onSearch(newText)
         },
         label = {
             Row(horizontalArrangement = Arrangement.Center) {
