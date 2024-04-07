@@ -47,7 +47,10 @@ import com.ramcosta.composedestinations.annotation.RootGraph
 import com.ramcosta.composedestinations.generated.NavGraphs
 import com.ramcosta.composedestinations.navigation.navigate
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
+import androidx.compose.material3.TextFieldDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
 
 @Composable
 @Preview
@@ -86,7 +89,10 @@ fun ModeSetting(navController: NavController? = null) {
             val context = LocalContext.current
             LaunchedEffect(Unit) {
                 withContext(Dispatchers.IO) {
-                    appList = getAllPackages(context).toCollection(appList)
+                    while (true) {
+                        appList = getAllPackages(context).toCollection(appList)
+                        delay(3000)
+                    }
                 }
             }
 
@@ -94,7 +100,7 @@ fun ModeSetting(navController: NavController? = null) {
                 remember {
                     mutableStateListOf<PackageInfo>()
                 }
-
+            
             SearchBar(
                 modifier =
                     Modifier
@@ -144,6 +150,10 @@ fun SearchBar(
             text = newText
             onSearch(newText)
         },
+        colors = TextFieldDefaults.colors(
+               focusedIndicatorColor = Color.Transparent,
+             unfocusedIndicatorColor = Color.Transparent
+            ),
         label = {
             Row(horizontalArrangement = Arrangement.Center) {
                 Icon(imageVector = Icons.Default.Search, contentDescription = null)
@@ -154,6 +164,7 @@ fun SearchBar(
                 )
             }
         },
+        shape = RoundedCornerShape(20.dp),
         singleLine = true,
     )
 }

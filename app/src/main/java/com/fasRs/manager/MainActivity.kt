@@ -91,6 +91,6 @@ fun MainScreen(navController: NavController? = null) {
                     )
                 }
             }
-        } 
+        }
     }
 }
