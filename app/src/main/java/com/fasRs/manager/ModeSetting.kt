@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -47,6 +46,8 @@ import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.annotation.RootGraph
 import com.ramcosta.composedestinations.generated.NavGraphs
 import com.ramcosta.composedestinations.navigation.navigate
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 @Composable
 @Preview
@@ -83,7 +84,9 @@ fun ModeSetting(navController: NavController? = null) {
 
         val context = LocalContext.current
         LaunchedEffect(Unit) {
-            appList = getAllPackages(context).toCollection(appList)
+            withContext(Dispatchers.IO) {
+                appList = getAllPackages(context).toCollection(appList)
+            }
         }
 
         var showList =
@@ -97,10 +100,16 @@ fun ModeSetting(navController: NavController? = null) {
                     .fillMaxWidth()
                     .padding(start = 25.dp, end = 25.dp),
             onSearch = { pkgOrName ->
-                showList =
+                showList.clear()
+                showList.addAll(
                     appList.filter { info ->
-                        info.appName.contains(pkgOrName) or info.pkgName.contains(pkgOrName)
-                    }.toCollection(showList)
+                        val appName = info.appName.lowercase()
+                        val pkgName = info.pkgName.lowercase()
+                        val pkgOrNameLowerCase = pkgOrName.lowercase()
+
+                        pkgOrNameLowerCase.isNotBlank() and (appName.contains(pkgOrName) or pkgName.contains(pkgOrName))
+                    },
+                )
             },
         )
 
@@ -109,10 +118,8 @@ fun ModeSetting(navController: NavController? = null) {
                 Modifier
                     .fillMaxWidth(),
         ) {
-            items(items = showList, key = { item ->
-                item.pkgName
-            }) { item ->
-                AppCard(modifier = Modifier.height(150.dp), packageInfo = item)
+            items(items = showList) { item ->
+                AppCard(packageInfo = item)
             }
         }
     }
