@@ -13,6 +13,7 @@ rustGradle = "0.9.3"
 navigationCompose = "2.7.7"
 ksp = "1.9.23-1.0.20"
 composeDestinations = "2.1.0-beta01"
+composeDestinationsAnimations = "1.11.2-alpha"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -35,6 +36,7 @@ libsu-service = { group = "com.github.topjohnwu.libsu", name = "service", versio
 libsu-io = { group = "com.github.topjohnwu.libsu", name = "io", version.ref = "libsu" }
 compose-destinations-core = { group = "io.github.raamcosta.compose-destinations", name = "core", version.ref = "composeDestinations" }
 compose-destinations-ksp = { group = "io.github.raamcosta.compose-destinations", name = "ksp", version.ref = "composeDestinations" }
+compose-destinations-animations-core = { group = "io.github.raamcosta.compose-destinations", name = "animations-core", version.ref = "composeDestinationsAnimations" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

@@ -31,59 +31,66 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             FasrsManagerTheme {
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background,
-                ) {
-                    DestinationsNavHost(navGraph = NavGraphs.root)
-                }
+                DestinationsNavHost(navGraph = NavGraphs.root)
             }
         }
+    }
+}
+
+@Composable
+fun BackgroundSurface(content: @Composable () -> Unit = {}) {
+    Surface(
+        modifier = Modifier.fillMaxSize(),
+        color = MaterialTheme.colorScheme.background,
+    ) {
+        content()
     }
 }
 
 @Preview
 @Preview(locale = "zh")
 @Composable
-@Destination<RootGraph>(start = true)
+@Destination<RootGraph>(start = true, style = AnimationProfile::class)
 fun MainScreen(navController: NavController? = null) {
-    LazyColumn(
-        modifier =
-            Modifier
-                .fillMaxSize(),
-    ) {
-        item {
-            Spacer(modifier = Modifier.height(75.dp))
-        }
-
-        item {
-            Box(
-                modifier =
-                    Modifier
-                        .fillMaxWidth(),
-            ) {
-                Title(
-                    Modifier
-                        .align(Alignment.BottomCenter)
-                        .padding(25.dp),
-                )
+    BackgroundSurface {
+        LazyColumn(
+            modifier =
+                Modifier
+                    .fillMaxSize(),
+        ) {
+            item {
+                Spacer(modifier = Modifier.height(75.dp))
             }
-        }
 
-        item {
-            Box(
-                modifier =
-                    Modifier
-                        .fillMaxWidth(),
-            ) {
-                SettingCards(
+            item {
+                Box(
                     modifier =
+                        Modifier
+                            .fillMaxWidth(),
+                ) {
+                    Title(
                         Modifier
                             .align(Alignment.BottomCenter)
                             .padding(25.dp),
-                    navController = navController,
-                )
+                    )
+                }
             }
-        }
+
+            item {
+                Box(
+                    modifier =
+                        Modifier
+                            .fillMaxWidth(),
+                ) {
+                    SettingCards(
+                        modifier =
+                            Modifier
+                                .align(Alignment.BottomCenter)
+                                .padding(25.dp),
+                        navController = navController,
+                    )
+                }
+            }
+        } 
     }
 }

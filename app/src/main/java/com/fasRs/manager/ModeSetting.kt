@@ -13,7 +13,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -51,75 +51,77 @@ import kotlinx.coroutines.withContext
 
 @Composable
 @Preview
-@Destination<RootGraph>
+@Destination<RootGraph>(style = AnimationProfile::class)
 fun ModeSetting(navController: NavController? = null) {
-    Column(modifier = Modifier.fillMaxSize()) {
-        Button(
-            modifier =
-                Modifier
-                    .padding(25.dp)
-                    .size(65.dp),
-            colors =
-                ButtonDefaults.buttonColors(
-                    containerColor = MaterialTheme.colorScheme.background,
-                    contentColor = MaterialTheme.colorScheme.primary,
-                ),
-            onClick = {
-                navController?.navigate(direction = NavGraphs.root) {
-                    launchSingleTop = true
-                }
-            },
-        ) {
-            Icon(
-                modifier = Modifier.fillMaxSize(),
-                imageVector = Icons.Default.ArrowBack,
-                contentDescription = null,
-            )
-        }
-
-        var appList =
-            remember {
-                mutableStateListOf<PackageInfo>()
-            }
-
-        val context = LocalContext.current
-        LaunchedEffect(Unit) {
-            withContext(Dispatchers.IO) {
-                appList = getAllPackages(context).toCollection(appList)
-            }
-        }
-
-        var showList =
-            remember {
-                mutableStateListOf<PackageInfo>()
-            }
-
-        SearchBar(
-            modifier =
-                Modifier
-                    .fillMaxWidth()
-                    .padding(start = 25.dp, end = 25.dp),
-            onSearch = { pkgOrName ->
-                showList.clear()
-                showList.addAll(
-                    appList.filter { info ->
-                        val appName = info.appName.lowercase()
-                        val pkgName = info.pkgName.lowercase()
-                        val pkgOrNameLowerCase = pkgOrName.lowercase()
-
-                        pkgOrNameLowerCase.isNotBlank() and (appName.contains(pkgOrName) or pkgName.contains(pkgOrName))
-                    },
+    BackgroundSurface {
+        Column(modifier = Modifier.fillMaxSize()) {
+            Button(
+                modifier =
+                    Modifier
+                        .padding(25.dp)
+                        .size(65.dp),
+                colors =
+                    ButtonDefaults.buttonColors(
+                        containerColor = MaterialTheme.colorScheme.background,
+                        contentColor = MaterialTheme.colorScheme.primary,
+                    ),
+                onClick = {
+                    navController?.navigate(direction = NavGraphs.root) {
+                        launchSingleTop = true
+                    }
+                },
+            ) {
+                Icon(
+                    modifier = Modifier.fillMaxSize(),
+                    imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                    contentDescription = null,
                 )
-            },
-        )
+            }
 
-        LazyColumn(
-            modifier =
-                Modifier
-                    .fillMaxWidth(),
-        ) {
-            items(items = showList) { item ->
-                AppCard(packageInfo = item)
+            var appList =
+                remember {
+                    mutableStateListOf<PackageInfo>()
+                }
+
+            val context = LocalContext.current
+            LaunchedEffect(Unit) {
+                withContext(Dispatchers.IO) {
+                    appList = getAllPackages(context).toCollection(appList)
+                }
+            }
+
+            var showList =
+                remember {
+                    mutableStateListOf<PackageInfo>()
+                }
+
+            SearchBar(
+                modifier =
+                    Modifier
+                        .fillMaxWidth()
+                        .padding(start = 25.dp, end = 25.dp),
+                onSearch = { pkgOrName ->
+                    showList.clear()
+                    showList.addAll(
+                        appList.filter { info ->
+                            val appName = info.appName.lowercase()
+                            val pkgName = info.pkgName.lowercase()
+                            val pkgOrNameLowerCase = pkgOrName.lowercase()
+
+                            pkgOrNameLowerCase.isNotBlank() and (appName.contains(pkgOrName) or pkgName.contains(pkgOrName))
+                        },
+                    )
+                },
+            )
+
+            LazyColumn(
+                modifier =
+                    Modifier
+                        .fillMaxWidth(),
+            ) {
+                items(items = showList) { item ->
+                    AppCard(packageInfo = item)
+                }
             }
         }
     }
