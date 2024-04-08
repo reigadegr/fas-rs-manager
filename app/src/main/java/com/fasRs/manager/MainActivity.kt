@@ -31,7 +31,9 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             FasrsManagerTheme {
-                DestinationsNavHost(navGraph = NavGraphs.root)
+                BackgroundSurface {
+                    DestinationsNavHost(navGraph = NavGraphs.root)
+                }
             }
         }
     }
