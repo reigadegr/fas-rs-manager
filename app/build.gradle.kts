@@ -1,4 +1,3 @@
-import org.gradle.api.Project
 import java.io.FileInputStream
 import java.util.Properties
 
@@ -32,13 +31,17 @@ android {
             abiFilters += listOf("arm64-v8a")
         }
     }
-    
+
     signingConfigs {
         create("all") {
+            enableV2Signing = true
+            enableV3Signing = true
+
             val keystorePropertiesFile = file("keystore.properties")
-            val keystoreProperties = Properties().apply {
-                load(FileInputStream(keystorePropertiesFile))
-            }
+            val keystoreProperties =
+                Properties().apply {
+                    load(FileInputStream(keystorePropertiesFile))
+                }
 
             storeFile = file(keystoreProperties.getProperty("storeFile"))
             storePassword = keystoreProperties.getProperty("storePassword")
@@ -65,7 +68,7 @@ android {
                 "proguard-rules.pro",
             )
         }
-        
+
         debug {
             signingConfig = signingConfigs.getByName("all")
         }
@@ -101,7 +104,7 @@ cargo {
     libname = "backend"
     targets = listOf("arm64")
     profile = "release"
-    
+
     tasks.withType<Exec> {
         doFirst {
             environment("RUSTFLAGS", "-Z build-std")
