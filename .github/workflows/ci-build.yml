@@ -15,25 +15,17 @@ jobs:
         with:
           distribution: temurin
           java-version: 17
-      - uses: gradle/gradle-build-action@v3.1.0
-        with:
-          arguments: assembleRelease
-      - name: Setup build tool version variable
+      - uses: gradle/actions/setup-gradle@v3.1.0
+      - name: Setup keystore.properties
         run: |
-          BUILD_TOOL_VERSION=$(ls /usr/local/lib/android/sdk/build-tools/ | tail -n 1)
-          echo "BUILD_TOOL_VERSION=$BUILD_TOOL_VERSION" >> $GITHUB_ENV
-          echo Last build tool version is: $BUILD_TOOL_VERSION
-      - uses: r0adkll/sign-android-release@v1
-        id: sign_app
-        env:
-          BUILD_TOOLS_VERSION: ${{ env.BUILD_TOOL_VERSION }}
-        with:
-          releaseDirectory: app/build/outputs/apk/release
-          signingKeyBase64: ${{ secrets.SIGNING_KEY }}
-          alias: ${{ secrets.ALIAS }}
-          keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
-          keyPassword: ${{ secrets.KEY_PASSWORD }}
-      - run: mv ${{steps.sign_app.outputs.signedReleaseFile}} fas-rs-manager.apk
+          cd app
+          echo ${{ secrets.SIGNING_KEY }} | base64 -d > sign.keystore
+          echo storePassword=${{ secrets.KEY_STORE_PASSWORD }} > keystore.properties
+          echo keyPassword=${{ secrets.KEY_PASSWORD }} >> keystore.properties
+          echo keyAlias=${{ secrets.ALIAS }} >> keystore.properties
+          echo storeFile=sign.keystore >> keystore.properties
+      - name: Build app
+        run: ./gradlew clean cargoBuild assembleRelease
       - uses: actions/upload-artifact@v4
         with:
             name: fas-rs-manager-ci.apk

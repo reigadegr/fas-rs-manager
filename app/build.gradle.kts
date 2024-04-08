@@ -1,3 +1,7 @@
+import org.gradle.api.Project
+import java.io.FileInputStream
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
@@ -28,6 +32,20 @@ android {
             abiFilters += listOf("arm64-v8a")
         }
     }
+    
+    signingConfigs {
+        create("all") {
+            val keystorePropertiesFile = file("keystore.properties")
+            val keystoreProperties = Properties().apply {
+                load(FileInputStream(keystorePropertiesFile))
+            }
+
+            storeFile = file(keystoreProperties.getProperty("storeFile"))
+            storePassword = keystoreProperties.getProperty("storePassword")
+            keyAlias = keystoreProperties.getProperty("keyAlias")
+            keyPassword = keystoreProperties.getProperty("keyPassword")
+        }
+    }
 
     sourceSets {
         getByName("main") {
@@ -40,10 +58,16 @@ android {
             isMinifyEnabled = true
             isShrinkResources = true
 
+            signingConfig = signingConfigs.getByName("all")
+
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro",
             )
+        }
+        
+        debug {
+            signingConfig = signingConfigs.getByName("all")
         }
     }
 
