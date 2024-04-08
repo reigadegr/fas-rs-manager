@@ -30,7 +30,7 @@ jobs:
           echo keyAlias=${{ secrets.ALIAS }} >> keystore.properties
           echo storeFile=sign.keystore >> keystore.properties
       - name: Build app
-        run: ./gradlew clean cargoBuild assembleRelease
+        run: ./gradlew clean assembleRelease
       - uses: actions/upload-artifact@v4
         with:
           name: fas-rs-manager-ci.apk

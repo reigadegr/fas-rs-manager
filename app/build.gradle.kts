@@ -101,6 +101,18 @@ cargo {
     libname = "backend"
     targets = listOf("arm64")
     profile = "release"
+    
+    tasks.withType<Exec> {
+        doFirst {
+            environment("RUSTFLAGS", "-Z build-std")
+        }
+    }
+}
+
+tasks.whenTaskAdded {
+    if (name == "javaPreCompileDebug" || name == "javaPreCompileRelease") {
+        dependsOn("cargoBuild")
+    }
 }
 
 dependencies {
