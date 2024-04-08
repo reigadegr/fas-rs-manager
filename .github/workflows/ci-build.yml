@@ -28,5 +28,5 @@ jobs:
         run: ./gradlew clean cargoBuild assembleRelease
       - uses: actions/upload-artifact@v4
         with:
-            name: fas-rs-manager-ci.apk
-            path: fas-rs-manager.apk
+          name: fas-rs-manager-ci.apk
+          path: app/build/outputs/apk/release/app-release.apk
