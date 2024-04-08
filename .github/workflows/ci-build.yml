@@ -13,12 +13,8 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-java@v4.2.1
         with:
-<<<<<<< HEAD
           distribution: temurin
           java-version: 17
-=======
-          java-version: 17
->>>>>>> 038c42a (update)
       - uses: gradle/gradle-build-action@v3.1.0
         with:
           arguments: assembleRelease
