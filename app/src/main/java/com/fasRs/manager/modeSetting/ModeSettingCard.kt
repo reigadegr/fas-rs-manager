@@ -1,4 +1,4 @@
-package com.fasRs.manager
+package com.fasRs.manager.modeSetting
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -25,6 +25,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.fasRs.manager.Mode
+import com.fasRs.manager.R
+import com.fasRs.manager.SettingCard
 import com.fasRs.manager.root.getRoot
 import com.ramcosta.composedestinations.generated.destinations.ModeSettingDestination
 import com.ramcosta.composedestinations.navigation.navigate

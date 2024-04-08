@@ -23,6 +23,10 @@ class RootService : LibSuService() {
         override fun getFasRsVersion(): String {
             return native.getFasRsVersion() ?: "failed"
         }
+
+        override fun getFasRsApps(): ArrayList<String> {
+            return ArrayList((native.getFasRsApps() ?: emptyArray()).toList())
+        }
     }
 
     override fun onBind(intent: Intent): IRootIPC.Stub {

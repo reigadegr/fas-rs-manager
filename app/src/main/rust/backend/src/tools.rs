@@ -5,9 +5,10 @@ use jni::sys::{jboolean, JNI_FALSE, JNI_TRUE};
 use sys_mount::{unmount, UnmountFlags};
 
 pub const fn as_jboolean(b: bool) -> jboolean {
-    match b {
-        true => JNI_TRUE,
-        false => JNI_FALSE,
+    if b {
+        JNI_TRUE
+    } else {
+        JNI_FALSE
     }
 }
 

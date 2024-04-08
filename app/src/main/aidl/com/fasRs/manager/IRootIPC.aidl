@@ -6,4 +6,5 @@ interface IRootIPC {
     String getFasRsMode();
     void setFasRsMode(String mode);
     String getFasRsVersion();
+    List<String> getFasRsApps();
 }

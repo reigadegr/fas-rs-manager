@@ -20,6 +20,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.fasRs.manager.modeSetting.ModeSettingCard
 
 @Composable
 @Preview
@@ -46,11 +47,11 @@ fun SettingCards(
             )
 
             ModeSettingCard(modifier = Modifier.weight(0.25f), navController = navController)
-            Divider(modifier = Modifier.padding(horizontal = 25.dp))
+            Divider(modifier = Modifier.padding(horizontal = 25.dp), color = MaterialTheme.colorScheme.secondary)
             SettingCard(modifier = Modifier.weight(0.25f))
-            Divider(modifier = Modifier.padding(horizontal = 25.dp))
+            Divider(modifier = Modifier.padding(horizontal = 25.dp), color = MaterialTheme.colorScheme.secondary)
             SettingCard(modifier = Modifier.weight(0.25f))
-            Divider(modifier = Modifier.padding(horizontal = 25.dp))
+            Divider(modifier = Modifier.padding(horizontal = 25.dp), color = MaterialTheme.colorScheme.secondary)
             SettingCard(modifier = Modifier.weight(0.25f))
 
             Spacer(

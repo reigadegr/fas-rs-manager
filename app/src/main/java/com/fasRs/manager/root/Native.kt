@@ -1,9 +1,13 @@
 package com.fasRs.manager.root
 
+import android.os.Process
+
 class Native {
     companion object {
         init {
-            System.loadLibrary("backend")
+            if (Process.myUid() == 0) {
+                System.loadLibrary("backend")
+            }
         }
     }
 
@@ -14,4 +18,6 @@ class Native {
     external fun setFasRsMode(mode: String)
 
     external fun getFasRsVersion(): String?
+
+    external fun getFasRsApps(): Array<String>?
 }
