@@ -36,6 +36,7 @@ android {
         create("all") {
             enableV2Signing = true
             enableV3Signing = true
+            enableV4Signing = true
 
             val keystorePropertiesFile = file("keystore.properties")
             val keystoreProperties =
@@ -119,6 +120,7 @@ tasks.whenTaskAdded {
 }
 
 dependencies {
+    implementation(libs.androidx.lifecycle.viewmodel)
     implementation(libs.compose.destinations.core)
     implementation(libs.compose.destinations.animations.core)
     ksp(libs.compose.destinations.ksp)
