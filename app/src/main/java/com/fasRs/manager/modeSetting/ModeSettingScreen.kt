@@ -14,34 +14,49 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.fasRs.manager.AnimationProfile
 import com.fasRs.manager.BackgroundSurface
-import com.fasRs.manager.PackageInfo
-import com.fasRs.manager.getAllPackages
-import com.fasRs.manager.root.getRoot
+import com.fasRs.manager.GlobalViewModel
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.annotation.RootGraph
 import com.ramcosta.composedestinations.generated.NavGraphs
 import com.ramcosta.composedestinations.navigation.navigate
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.withContext
+
+@Composable
+@Destination<RootGraph>(style = AnimationProfile::class)
+fun ModeSettingScreen(
+    navController: NavController,
+    globalViewModel: GlobalViewModel,
+) {
+    val modeSettingViewModel: ModeSettingViewModel =
+        viewModel(
+            factory =
+                object : ViewModelProvider.Factory {
+                    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+                        @Suppress("UNCHECKED_CAST")
+                        return ModeSettingViewModel(globalViewModel.applicationContext) as T
+                    }
+                },
+        )
+
+    ModeSettingScreenContent(navController, globalViewModel, modeSettingViewModel)
+}
 
 @Composable
 @Preview
-@Destination<RootGraph>(style = AnimationProfile::class)
-fun ModeSettingScreen(navController: NavController? = null) {
+fun ModeSettingScreenContent(
+    navController: NavController? = null,
+    globalViewModel: GlobalViewModel? = null,
+    modeSettingViewModel: ModeSettingViewModel? = null,
+) {
     BackgroundSurface {
         Column(modifier = Modifier.fillMaxSize()) {
             Button(
@@ -67,46 +82,19 @@ fun ModeSettingScreen(navController: NavController? = null) {
                 )
             }
 
-            var appList by
-                remember {
-                    mutableStateOf(mutableStateListOf<PackageInfo>())
-                }
-
-            val context = LocalContext.current
-            LaunchedEffect(Unit) {
-                withContext(Dispatchers.IO) {
-                    appList.clear()
-                    appList.addAll(getAllPackages(context))
-                }
-            }
-
-            var showList by
-                remember {
-                    mutableStateOf(mutableStateListOf<PackageInfo>())
-                }
-
-            LaunchedEffect(Unit) {
-                while (true) {
-                    getRoot(context) { root ->
-                        val pkgList = root.getFasRsApps()
-                        showList.clear()
-                        showList.addAll(
-                            appList.filter { info ->
-                                pkgList.contains(info.pkgName)
-                            },
-                        )
-                    }
-
-                    delay(3000)
-                }
-            }
+            val showList =
+                modeSettingViewModel?.currentAppShowList?.collectAsState()?.value ?: emptyList()
+            val showListInfo =
+                globalViewModel?.currentAllPackages?.collectAsState()?.value?.filter { info ->
+                    showList.contains(info.pkgName)
+                } ?: emptyList()
 
             LazyColumn(
                 modifier =
                     Modifier
                         .fillMaxWidth(),
             ) {
-                items(items = showList) { item ->
+                items(items = showListInfo) { item ->
                     AppCard(packageInfo = item)
                 }
             }

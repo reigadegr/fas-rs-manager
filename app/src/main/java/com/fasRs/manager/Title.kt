@@ -32,18 +32,19 @@ import com.fasRs.manager.root.getRoot
 
 @Composable
 @Preview
-fun Title(modifier: Modifier = Modifier) {
+fun Title(
+    modifier: Modifier = Modifier,
+    currentFasRsState: FasRsState = FasRsState.RUNNING,
+) {
     Column(modifier = modifier) {
         Box {
             TitleText(modifier = Modifier, color = MaterialTheme.colorScheme.primary)
         }
 
         Spacer(modifier = Modifier.height(25.dp))
-
-        val state = rememberState()
         val backgroundColor =
-            when (state) {
-                State.RUNNING -> MaterialTheme.colorScheme.primary
+            when (currentFasRsState) {
+                FasRsState.RUNNING -> MaterialTheme.colorScheme.primary
                 else -> MaterialTheme.colorScheme.error
             }
 
@@ -66,7 +67,7 @@ fun Title(modifier: Modifier = Modifier) {
                             .width(100.dp)
                             .height(100.dp)
                             .padding(25.dp),
-                    state = state,
+                    fasRsState = currentFasRsState,
                 )
 
                 Column(
@@ -79,7 +80,7 @@ fun Title(modifier: Modifier = Modifier) {
                                 .weight(0.5f),
                         contentAlignment = Alignment.BottomStart,
                     ) {
-                        TitleStatus(color = MaterialTheme.colorScheme.onTertiary, state = state)
+                        TitleStatus(color = MaterialTheme.colorScheme.onTertiary, fasRsState = currentFasRsState)
                     }
 
                     Box(
@@ -91,7 +92,7 @@ fun Title(modifier: Modifier = Modifier) {
                     ) {
                         TitleVersion(
                             color = MaterialTheme.colorScheme.onSecondary,
-                            state = state,
+                            fasRsState = currentFasRsState,
                         )
                     }
                 }
@@ -103,11 +104,11 @@ fun Title(modifier: Modifier = Modifier) {
 @Composable
 fun TitleIcon(
     modifier: Modifier = Modifier,
-    state: State,
+    fasRsState: FasRsState,
 ) {
     val icon =
-        when (state) {
-            State.RUNNING -> Icons.Filled.CheckCircle
+        when (fasRsState) {
+            FasRsState.RUNNING -> Icons.Filled.CheckCircle
             else -> Icons.Filled.Close
         }
 
@@ -137,11 +138,11 @@ fun TitleText(
 fun TitleVersion(
     modifier: Modifier = Modifier,
     color: Color,
-    state: State,
+    fasRsState: FasRsState,
 ) {
     val text =
-        when (state) {
-            State.RUNNING -> {
+        when (fasRsState) {
+            FasRsState.RUNNING -> {
                 val context = LocalContext.current
 
                 var version = stringResource(id = R.string.title_version_unknown)
@@ -167,13 +168,13 @@ fun TitleVersion(
 fun TitleStatus(
     modifier: Modifier = Modifier,
     color: Color,
-    state: State,
+    fasRsState: FasRsState,
 ) {
     val text =
-        when (state) {
-            State.NEED_ROOT -> stringResource(id = R.string.title_status_need_root)
-            State.RUNNING -> stringResource(id = R.string.title_status_running)
-            State.NOT_RUNNING -> stringResource(id = R.string.title_status_not_running)
+        when (fasRsState) {
+            FasRsState.NEED_ROOT -> stringResource(id = R.string.title_status_need_root)
+            FasRsState.RUNNING -> stringResource(id = R.string.title_status_running)
+            FasRsState.NOT_RUNNING -> stringResource(id = R.string.title_status_not_running)
         }
 
     Text(

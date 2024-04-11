@@ -34,6 +34,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.fasRs.manager.AnimationProfile
 import com.fasRs.manager.BackgroundSurface
+import com.fasRs.manager.GlobalViewModel
 import com.fasRs.manager.PackageInfo
 import com.fasRs.manager.getAllPackages
 import com.ramcosta.composedestinations.annotation.Destination
@@ -46,7 +47,10 @@ import kotlinx.coroutines.withContext
 @Composable
 @Preview
 @Destination<RootGraph>(style = AnimationProfile::class)
-fun AddApp(navController: NavController? = null) {
+fun AddAppScreen(
+    navController: NavController? = null,
+    globalViewModel: GlobalViewModel? = null,
+) {
     BackgroundSurface {
         Column(modifier = Modifier.fillMaxSize()) {
             Button(
@@ -103,7 +107,12 @@ fun AddApp(navController: NavController? = null) {
                             val pkgName = info.pkgName.lowercase()
                             val pkgOrNameLowerCase = pkgOrName.lowercase()
 
-                            pkgOrNameLowerCase.isNotBlank() and (appName.contains(pkgOrName) or pkgName.contains(pkgOrName))
+                            pkgOrNameLowerCase.isNotBlank() and (
+                                appName.contains(pkgOrName) or
+                                    pkgName.contains(
+                                        pkgOrName,
+                                    )
+                            )
                         },
                     )
                 },
