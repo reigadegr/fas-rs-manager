@@ -4,11 +4,13 @@ import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.fasRs.manager.root.getRoot
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class GlobalViewModel(val applicationContext: Context) : ViewModel() {
     private var _currentFasRsState = MutableStateFlow(FasRsState.NEED_ROOT)
@@ -27,7 +29,9 @@ class GlobalViewModel(val applicationContext: Context) : ViewModel() {
                     }
                 }
 
-                _currentAllPackages.value = getAllPackages(applicationContext)
+                withContext(Dispatchers.IO) {
+                    _currentAllPackages.value = getAllPackages(applicationContext)
+                }
 
                 delay(1500)
             }
