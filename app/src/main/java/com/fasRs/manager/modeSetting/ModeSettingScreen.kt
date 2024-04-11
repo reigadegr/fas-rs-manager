@@ -41,7 +41,7 @@ import kotlinx.coroutines.withContext
 @Composable
 @Preview
 @Destination<RootGraph>(style = AnimationProfile::class)
-fun ModeSetting(navController: NavController? = null) {
+fun ModeSettingScreen(navController: NavController? = null) {
     BackgroundSurface {
         Column(modifier = Modifier.fillMaxSize()) {
             Button(

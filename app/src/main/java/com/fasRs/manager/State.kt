@@ -10,28 +10,6 @@ import androidx.compose.ui.platform.LocalContext
 import com.fasRs.manager.root.getRoot
 import kotlinx.coroutines.delay
 
-@Composable
-fun rememberState(): State {
-    var state by remember { mutableStateOf(State.NEED_ROOT) }
-    val context = LocalContext.current
-
-    LaunchedEffect(Unit) {
-        while (true) {
-            getRoot(context) { root ->
-                if (root.isFasRsRunning()) {
-                    state = State.RUNNING
-                } else {
-                    state = State.NOT_RUNNING
-                }
-            }
-
-            delay(1000)
-        }
-    }
-
-    return state
-}
-
 enum class State {
     NEED_ROOT,
     NOT_RUNNING,

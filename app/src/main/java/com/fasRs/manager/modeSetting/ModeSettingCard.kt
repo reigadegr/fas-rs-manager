@@ -29,7 +29,7 @@ import com.fasRs.manager.Mode
 import com.fasRs.manager.R
 import com.fasRs.manager.SettingCard
 import com.fasRs.manager.root.getRoot
-import com.ramcosta.composedestinations.generated.destinations.ModeSettingDestination
+import com.ramcosta.composedestinations.generated.destinations.ModeSettingScreenDestination
 import com.ramcosta.composedestinations.navigation.navigate
 import kotlinx.coroutines.delay
 
@@ -43,7 +43,7 @@ fun ModeSettingCard(
     SettingCard(
         modifier =
             modifier.clickable {
-                navController?.navigate(ModeSettingDestination) {
+                navController?.navigate(ModeSettingScreenDestination) {
                     launchSingleTop = true
                 }
             },

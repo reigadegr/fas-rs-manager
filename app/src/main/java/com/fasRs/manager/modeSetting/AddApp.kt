@@ -38,7 +38,7 @@ import com.fasRs.manager.PackageInfo
 import com.fasRs.manager.getAllPackages
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.annotation.RootGraph
-import com.ramcosta.composedestinations.generated.destinations.ModeSettingDestination
+import com.ramcosta.composedestinations.generated.destinations.ModeSettingScreenDestination
 import com.ramcosta.composedestinations.navigation.navigate
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -60,7 +60,7 @@ fun AddApp(navController: NavController? = null) {
                         contentColor = MaterialTheme.colorScheme.primary,
                     ),
                 onClick = {
-                    navController?.navigate(direction = ModeSettingDestination) {
+                    navController?.navigate(direction = ModeSettingScreenDestination) {
                         launchSingleTop = true
                     }
                 },
