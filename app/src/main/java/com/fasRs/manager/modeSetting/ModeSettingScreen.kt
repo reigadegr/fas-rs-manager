@@ -1,5 +1,6 @@
 package com.fasRs.manager.modeSetting
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowColumn
 import androidx.compose.foundation.layout.padding
@@ -11,6 +12,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -64,30 +66,35 @@ fun ModeSettingScreenContent(
             showList.contains(info.pkgName)
         } ?: emptyList()
 
-    LazyScreen(beforeLazy = {
-        FloatingActionButton(onClick = { /*TODO*/ }) {
-            Icon(imageVector = Icons.Filled.Add, contentDescription = null)
-        }
-    }) {
-        item {
-            BackButton(modifier = Modifier.padding(25.dp), navController = navController)
-        }
+    Box {
+        LazyScreen {
+            item {
+                BackButton(modifier = Modifier.padding(25.dp), navController = navController)
+            }
 
-        item {
-            Text(
-                modifier = Modifier.padding(25.dp),
-                text = stringResource(id = R.string.mode_setting_screen_title),
-                textAlign = TextAlign.Center,
-                style = MaterialTheme.typography.titleLarge,
-            )
-        }
+            item {
+                Text(
+                    modifier = Modifier.padding(25.dp),
+                    text = stringResource(id = R.string.mode_setting_screen_title),
+                    textAlign = TextAlign.Center,
+                    style = MaterialTheme.typography.titleLarge,
+                )
+            }
 
-        item(showListInfo) {
-            FlowColumn {
-                showListInfo.forEach { info ->
-                    AppCard(packageInfo = info)
+            item(showListInfo) {
+                FlowColumn {
+                    showListInfo.forEach { info ->
+                        AppCard(packageInfo = info)
+                    }
                 }
             }
+        }
+
+        FloatingActionButton(
+            modifier = Modifier.align(Alignment.BottomEnd).padding(50.dp),
+            onClick = {},
+        ) {
+            Icon(imageVector = Icons.Filled.Add, contentDescription = null)
         }
     }
 }
