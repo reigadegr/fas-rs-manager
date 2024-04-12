@@ -12,6 +12,7 @@ pub const fn as_jboolean(b: bool) -> jboolean {
     }
 }
 
+#[allow(dead_code)]
 pub const fn as_bool(b: jboolean) -> bool {
     match b {
         JNI_TRUE => true,
