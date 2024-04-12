@@ -2,19 +2,13 @@ package com.fasRs.manager.modeSetting
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Search
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
@@ -30,12 +24,11 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.fasRs.manager.AnimationProfile
+import com.fasRs.manager.BackButton
 import com.fasRs.manager.GlobalViewModel
 import com.fasRs.manager.LazyScreen
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.annotation.RootGraph
-import com.ramcosta.composedestinations.generated.destinations.ModeSettingScreenDestination
-import com.ramcosta.composedestinations.navigation.navigate
 
 @Composable
 @Destination<RootGraph>(style = AnimationProfile::class)
@@ -61,28 +54,7 @@ fun AddAppScreenContent(
 
     LazyScreen {
         item {
-            Button(
-                modifier =
-                    Modifier
-                        .padding(25.dp)
-                        .size(65.dp),
-                colors =
-                    ButtonDefaults.buttonColors(
-                        containerColor = MaterialTheme.colorScheme.background,
-                        contentColor = MaterialTheme.colorScheme.primary,
-                    ),
-                onClick = {
-                    navController?.navigate(direction = ModeSettingScreenDestination) {
-                        launchSingleTop = true
-                    }
-                },
-            ) {
-                Icon(
-                    modifier = Modifier.fillMaxSize(),
-                    imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                    contentDescription = null,
-                )
-            }
+            BackButton(modifier = Modifier.padding(25.dp), navController = navController)
         }
 
         item(allPackageInfo) {
