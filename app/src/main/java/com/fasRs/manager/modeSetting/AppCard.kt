@@ -45,7 +45,7 @@ fun AppCard(
                 defaultElevation = 3.dp,
             ),
         shape = RoundedCornerShape(20.dp),
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primaryContainer),
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.secondaryContainer),
     ) {
         Row(
             modifier = Modifier.fillMaxSize(),
