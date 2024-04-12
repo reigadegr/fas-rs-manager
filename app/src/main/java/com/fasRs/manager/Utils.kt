@@ -68,7 +68,7 @@ fun BackButton(
     navController: NavController? = null,
 ) {
     IconButton(
-        modifier = modifier.size(25.dp),
+        modifier = modifier.size(30.dp),
         onClick = {
             navController?.navigate(direction = NavGraphs.root)
         },

@@ -56,7 +56,7 @@ fun Title(
             modifier = Modifier.fillMaxWidth(),
             shape = RoundedCornerShape(20.dp),
             color = backgroundColor,
-            shadowElevation = 10.dp,
+            shadowElevation = 3.dp,
         ) {
             Row(
                 modifier =

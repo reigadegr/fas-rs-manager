@@ -36,7 +36,7 @@ fun SettingCards(
         border = BorderStroke(2.dp, MaterialTheme.colorScheme.secondary),
         shape = RoundedCornerShape(20.dp),
         color = MaterialTheme.colorScheme.primaryContainer,
-        shadowElevation = 10.dp,
+        shadowElevation = 3.dp,
     ) {
         Column(modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.Top) {
             Spacer(
