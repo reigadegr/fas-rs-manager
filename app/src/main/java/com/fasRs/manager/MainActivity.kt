@@ -18,7 +18,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             FasrsManagerTheme {
-                BackgroundSurface {
+                Background {
                     val globalViewModel: GlobalViewModel =
                         viewModel(
                             factory =

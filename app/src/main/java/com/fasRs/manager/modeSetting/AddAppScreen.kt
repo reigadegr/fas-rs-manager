@@ -1,13 +1,11 @@
 package com.fasRs.manager.modeSetting
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -32,8 +30,8 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.fasRs.manager.AnimationProfile
-import com.fasRs.manager.BackgroundSurface
 import com.fasRs.manager.GlobalViewModel
+import com.fasRs.manager.LazyScreen
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.annotation.RootGraph
 import com.ramcosta.composedestinations.generated.destinations.ModeSettingScreenDestination
@@ -56,8 +54,13 @@ fun AddAppScreenContent(
     globalViewModel: GlobalViewModel? = null,
     addAppListViewModel: AddAppScreenViewModel? = null,
 ) {
-    BackgroundSurface {
-        Column(modifier = Modifier.fillMaxSize()) {
+    val allPackageInfo =
+        globalViewModel?.currentAllPackages?.collectAsState()?.value ?: emptyList()
+    val showList =
+        addAppListViewModel?.currentAppShowList?.collectAsState()?.value ?: emptyList()
+
+    LazyScreen {
+        item {
             Button(
                 modifier =
                     Modifier
@@ -80,12 +83,9 @@ fun AddAppScreenContent(
                     contentDescription = null,
                 )
             }
+        }
 
-            val allPackageInfo =
-                globalViewModel?.currentAllPackages?.collectAsState()?.value ?: emptyList()
-            val showList =
-                addAppListViewModel?.currentAppShowList?.collectAsState()?.value ?: emptyList()
-
+        item(allPackageInfo) {
             SearchBar(
                 modifier =
                     Modifier
@@ -95,16 +95,10 @@ fun AddAppScreenContent(
                     addAppListViewModel?.updateAppShowList(allPackageInfo, searchName)
                 },
             )
+        }
 
-            LazyColumn(
-                modifier =
-                    Modifier
-                        .fillMaxWidth(),
-            ) {
-                items(items = showList) { item ->
-                    AppCard(packageInfo = item)
-                }
-            }
+        items(items = showList) { item ->
+            AppCard(packageInfo = item)
         }
     }
 }

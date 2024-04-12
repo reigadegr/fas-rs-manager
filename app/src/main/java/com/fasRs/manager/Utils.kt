@@ -6,18 +6,43 @@ import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.drawable.Drawable
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 
 @Composable
-fun BackgroundSurface(content: @Composable () -> Unit = {}) {
+fun Background(
+    color: Color = MaterialTheme.colorScheme.background,
+    content: @Composable () -> Unit = {},
+) {
     Surface(
         modifier = Modifier.fillMaxSize(),
-        color = MaterialTheme.colorScheme.background,
+        color = color,
     ) {
         content()
+    }
+}
+
+@Composable
+fun LazyScreen(
+    color: Color = MaterialTheme.colorScheme.background,
+    content: LazyListScope.() -> Unit,
+) {
+    Surface(
+        modifier = Modifier.fillMaxSize(),
+        color = color,
+    ) {
+        LazyColumn(
+            modifier =
+                Modifier
+                    .fillMaxSize(),
+        ) {
+            content()
+        }
     }
 }
 
