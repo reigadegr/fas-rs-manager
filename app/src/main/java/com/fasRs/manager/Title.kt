@@ -18,6 +18,10 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -140,23 +144,23 @@ fun TitleVersion(
     color: Color,
     fasRsState: FasRsState,
 ) {
-    val text =
-        when (fasRsState) {
-            FasRsState.RUNNING -> {
-                val context = LocalContext.current
+    val unknownVersion = stringResource(id = R.string.title_version_unknown)
+    var version by remember {
+        mutableStateOf(unknownVersion)
+    }
 
-                var version = stringResource(id = R.string.title_version_unknown)
-                getRoot(context) { root ->
-                    version = root.getFasRsVersion()
-                }
-
-                version
+    when (fasRsState) {
+        FasRsState.RUNNING -> {
+            val context = LocalContext.current
+            getRoot(context) { root ->
+                version = root.getFasRsVersion()
             }
-            else -> stringResource(id = R.string.title_version_unknown)
         }
+        else -> version = unknownVersion
+    }
 
     Text(
-        text = text,
+        text = version,
         style = MaterialTheme.typography.headlineSmall,
         textAlign = TextAlign.Center,
         modifier = modifier,
