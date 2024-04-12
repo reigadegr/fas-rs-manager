@@ -4,10 +4,11 @@
     <string name="title_status_running">Running</string>
     <string name="title_status_need_root">Root unaccessable</string>
     <string name="title_version_unknown">unknown version</string>
-    <string name="settings_current_mode">Mode</string>
-    <string name="setting_mode_unknown_mode">unknown</string>
-    <string name="setting_mode_powersave_mode">powersave</string>
-    <string name="setting_mode_balance_mode">balance</string>
-    <string name="setting_mode_performance_mode">performance</string>
-    <string name="setting_mode_fast_mode">fast</string>
+    <string name="current_mode">Mode</string>
+    <string name="mode_unknown">unknown</string>
+    <string name="mode_powersave">powersave</string>
+    <string name="mode_balance">balance</string>
+    <string name="mode_performance">performance</string>
+    <string name="mode_fast">fast</string>
+    <string name="mode_setting_screen_title">Games Added</string>
 </resources>

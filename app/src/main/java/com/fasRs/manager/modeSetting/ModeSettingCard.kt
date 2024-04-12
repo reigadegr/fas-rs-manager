@@ -71,16 +71,16 @@ fun ModeSettingCard(
 
             val displayMode =
                 when (runningMode) {
-                    Mode.Powersave -> stringResource(id = R.string.setting_mode_powersave_mode)
-                    Mode.Balance -> stringResource(id = R.string.setting_mode_balance_mode)
-                    Mode.Performance -> stringResource(id = R.string.setting_mode_performance_mode)
-                    Mode.Fast -> stringResource(id = R.string.setting_mode_fast_mode)
-                    Mode.Unknown -> stringResource(id = R.string.setting_mode_unknown_mode)
+                    Mode.Powersave -> stringResource(id = R.string.mode_powersave)
+                    Mode.Balance -> stringResource(id = R.string.mode_balance)
+                    Mode.Performance -> stringResource(id = R.string.mode_performance)
+                    Mode.Fast -> stringResource(id = R.string.mode_fast)
+                    Mode.Unknown -> stringResource(id = R.string.mode_unknown)
                 }
 
             Text(
                 modifier = Modifier.padding(25.dp),
-                text = "${stringResource(id = R.string.settings_current_mode)}: $displayMode",
+                text = "${stringResource(id = R.string.current_mode)}: $displayMode",
                 style = MaterialTheme.typography.headlineSmall,
                 color = MaterialTheme.colorScheme.onPrimaryContainer,
                 textAlign = TextAlign.Center,

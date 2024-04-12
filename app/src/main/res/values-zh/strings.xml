@@ -4,10 +4,11 @@
     <string name="title_status_running">运行中</string>
     <string name="title_status_need_root">无Root权限</string>
     <string name="title_version_unknown">未知版本</string>
-    <string name="settings_current_mode">当前模式</string>
-    <string name="setting_mode_unknown_mode">未知</string>
-    <string name="setting_mode_powersave_mode">省电</string>
-    <string name="setting_mode_balance_mode">均衡</string>
-    <string name="setting_mode_performance_mode">性能</string>
-    <string name="setting_mode_fast_mode">极速</string>
+    <string name="current_mode">当前模式</string>
+    <string name="mode_unknown">未知</string>
+    <string name="mode_powersave">省电</string>
+    <string name="mode_balance">均衡</string>
+    <string name="mode_performance">性能</string>
+    <string name="mode_fast">极速</string>
+    <string name="mode_setting_screen_title">已添加游戏</string>
 </resources>

@@ -1,10 +1,13 @@
 package com.fasRs.manager.modeSetting
 
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModel
@@ -15,6 +18,7 @@ import com.fasRs.manager.AnimationProfile
 import com.fasRs.manager.BackButton
 import com.fasRs.manager.GlobalViewModel
 import com.fasRs.manager.LazyScreen
+import com.fasRs.manager.R
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.annotation.RootGraph
 
@@ -54,7 +58,10 @@ fun ModeSettingScreenContent(
 
     LazyScreen {
         item {
-            BackButton(modifier = Modifier.padding(25.dp), navController = navController)
+            Row {
+                BackButton(modifier = Modifier.padding(25.dp), navController = navController)
+                Text(text = stringResource(id = R.string.mode_setting_screen_title))
+            }
         }
 
         items(items = showListInfo) { item ->
