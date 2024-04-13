@@ -18,27 +18,22 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.TextUnitType
 import androidx.compose.ui.unit.dp
-import com.fasRs.manager.root.getRoot
 
 @Composable
 @Preview
 fun Title(
     modifier: Modifier = Modifier,
     currentFasRsState: FasRsState = FasRsState.RUNNING,
+    currentFasRsVersion: String = stringResource(id = R.string.title_version_unknown),
 ) {
     Column(modifier = modifier) {
         Box {
@@ -84,7 +79,10 @@ fun Title(
                                 .weight(0.5f),
                         contentAlignment = Alignment.BottomStart,
                     ) {
-                        TitleStatus(color = MaterialTheme.colorScheme.onTertiary, fasRsState = currentFasRsState)
+                        TitleStatus(
+                            color = MaterialTheme.colorScheme.onTertiary,
+                            fasRsState = currentFasRsState,
+                        )
                     }
 
                     Box(
@@ -96,7 +94,7 @@ fun Title(
                     ) {
                         TitleVersion(
                             color = MaterialTheme.colorScheme.onSecondary,
-                            fasRsState = currentFasRsState,
+                            fasRsVersion = currentFasRsVersion,
                         )
                     }
                 }
@@ -142,25 +140,10 @@ fun TitleText(
 fun TitleVersion(
     modifier: Modifier = Modifier,
     color: Color,
-    fasRsState: FasRsState,
+    fasRsVersion: String,
 ) {
-    val unknownVersion = stringResource(id = R.string.title_version_unknown)
-    var version by remember {
-        mutableStateOf(unknownVersion)
-    }
-
-    when (fasRsState) {
-        FasRsState.RUNNING -> {
-            val context = LocalContext.current
-            getRoot(context) { root ->
-                version = root.getFasRsVersion()
-            }
-        }
-        else -> version = unknownVersion
-    }
-
     Text(
-        text = version,
+        text = fasRsVersion,
         style = MaterialTheme.typography.headlineSmall,
         textAlign = TextAlign.Center,
         modifier = modifier,

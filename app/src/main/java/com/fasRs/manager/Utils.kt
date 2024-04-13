@@ -5,7 +5,7 @@ import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.drawable.Drawable
-import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
@@ -43,29 +43,22 @@ fun Background(
 @Composable
 fun LazyScreen(
     color: Color = MaterialTheme.colorScheme.background,
-    beforeLazy: @Composable () -> Unit = {},
-    afterLazy: @Composable () -> Unit = {},
     content: LazyListScope.() -> Unit,
 ) {
     Surface(
         modifier = Modifier.fillMaxSize(),
         color = color,
     ) {
-        Column {
-            beforeLazy()
-
-            LazyColumn(
-                modifier =
+        LazyColumn(
+            modifier =
                 Modifier
                     .fillMaxSize(),
-            ) {
-                item {
-                    Spacer(modifier = Modifier.height(75.dp))
-                }
-                content()
+            contentPadding = PaddingValues(25.dp),
+        ) {
+            item {
+                Spacer(modifier = Modifier.height(75.dp))
             }
-
-            afterLazy()
+            content()
         }
     }
 }

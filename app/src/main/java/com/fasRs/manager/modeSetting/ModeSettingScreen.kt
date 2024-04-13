@@ -1,5 +1,6 @@
 package com.fasRs.manager.modeSetting
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowColumn
@@ -50,7 +51,7 @@ fun ModeSettingScreen(
     ModeSettingScreenContent(navController, globalViewModel, modeSettingViewModel)
 }
 
-@OptIn(ExperimentalLayoutApi::class)
+@OptIn(ExperimentalLayoutApi::class, ExperimentalFoundationApi::class)
 @Composable
 @Preview
 @Preview(locale = "zh")
@@ -69,12 +70,11 @@ fun ModeSettingScreenContent(
     Box {
         LazyScreen {
             item {
-                BackButton(modifier = Modifier.padding(25.dp), navController = navController)
+                BackButton(navController = navController)
             }
 
-            item {
+            stickyHeader {
                 Text(
-                    modifier = Modifier.padding(25.dp),
                     text = stringResource(id = R.string.mode_setting_screen_title),
                     textAlign = TextAlign.Center,
                     style = MaterialTheme.typography.headlineMedium,
