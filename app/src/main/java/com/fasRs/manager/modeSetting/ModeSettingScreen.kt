@@ -77,7 +77,7 @@ fun ModeSettingScreenContent(
                     modifier = Modifier.padding(25.dp),
                     text = stringResource(id = R.string.mode_setting_screen_title),
                     textAlign = TextAlign.Center,
-                    style = MaterialTheme.typography.titleLarge,
+                    style = MaterialTheme.typography.headlineMedium,
                 )
             }
 
