@@ -35,6 +35,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import androidx.navigation.plusAssign
 import com.fasRs.manager.AnimationProfile
 import com.fasRs.manager.BackButton
 import com.fasRs.manager.GlobalViewModel

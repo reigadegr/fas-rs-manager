@@ -3,14 +3,13 @@ package com.fasRs.manager.modeSetting
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.navigation.BottomSheetNavigator
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.NavController
-import com.fasRs.manager.BackButton
 import com.fasRs.manager.GlobalViewModel
 import com.fasRs.manager.LazyColumnScreen
 import com.fasRs.manager.SearchBar
@@ -21,7 +20,7 @@ import com.ramcosta.composedestinations.bottomsheet.spec.DestinationStyleBottomS
 @Composable
 @Destination<RootGraph>(style = DestinationStyleBottomSheet::class)
 fun AddAppScreen(
-    navController: NavController,
+    navController: BottomSheetNavigator,
     globalViewModel: GlobalViewModel,
 ) {
     val addAppScreenViewModel: AddAppScreenViewModel = viewModel()
@@ -31,7 +30,7 @@ fun AddAppScreen(
 @Composable
 @Preview
 private fun AddAppScreenContent(
-    navController: NavController? = null,
+    navController: BottomSheetNavigator? = null,
     globalViewModel: GlobalViewModel? = null,
     addAppListViewModel: AddAppScreenViewModel? = null,
 ) {
@@ -41,10 +40,6 @@ private fun AddAppScreenContent(
         addAppListViewModel?.currentAppShowList?.collectAsState()?.value ?: emptyList()
 
     LazyColumnScreen {
-        item {
-            BackButton(modifier = Modifier.padding(25.dp), navController = navController)
-        }
-
         item(allPackageInfo) {
             SearchBar(
                 modifier =
