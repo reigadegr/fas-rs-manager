@@ -4,7 +4,10 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowColumn
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.FloatingActionButton
@@ -55,7 +58,7 @@ fun ModeSettingScreen(
 @Composable
 @Preview
 @Preview(locale = "zh")
-fun ModeSettingScreenContent(
+private fun ModeSettingScreenContent(
     navController: NavController? = null,
     globalViewModel: GlobalViewModel? = null,
     modeSettingViewModel: ModeSettingViewModel? = null,
@@ -69,11 +72,11 @@ fun ModeSettingScreenContent(
 
     Box {
         LazyScreen {
-            item {
-                BackButton(navController = navController)
-            }
-
             stickyHeader {
+                BackButton(navController = navController)
+
+                Spacer(modifier = Modifier.height(25.dp))
+
                 Text(
                     text = stringResource(id = R.string.mode_setting_screen_title),
                     textAlign = TextAlign.Center,
@@ -93,6 +96,7 @@ fun ModeSettingScreenContent(
         FloatingActionButton(
             modifier = Modifier.align(Alignment.BottomEnd).padding(50.dp),
             onClick = {},
+            shape = CircleShape,
         ) {
             Icon(imageVector = Icons.Filled.Add, contentDescription = null)
         }

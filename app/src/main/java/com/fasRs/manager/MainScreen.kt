@@ -15,8 +15,8 @@ import com.ramcosta.composedestinations.annotation.RootGraph
 @Composable
 @Destination<RootGraph>(start = true, style = AnimationProfile::class)
 fun MainScreen(
-    navController: NavController? = null,
-    globalViewModel: GlobalViewModel? = null,
+    navController: NavController,
+    globalViewModel: GlobalViewModel,
 ) {
     MainScreenContent(navController, globalViewModel)
 }
@@ -24,7 +24,7 @@ fun MainScreen(
 @Preview
 @Preview(locale = "zh")
 @Composable
-fun MainScreenContent(
+private fun MainScreenContent(
     navController: NavController? = null,
     globalViewModel: GlobalViewModel? = null,
 ) {
@@ -41,7 +41,7 @@ fun MainScreenContent(
         }
 
         item {
-            Spacer(modifier = Modifier.height(25.dp))
+            Spacer(modifier = Modifier.height(50.dp))
         }
 
         item {

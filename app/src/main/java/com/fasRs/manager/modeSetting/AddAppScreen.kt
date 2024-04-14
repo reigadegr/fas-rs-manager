@@ -42,7 +42,7 @@ fun AddAppScreen(
 
 @Composable
 @Preview
-fun AddAppScreenContent(
+private fun AddAppScreenContent(
     navController: NavController? = null,
     globalViewModel: GlobalViewModel? = null,
     addAppListViewModel: AddAppScreenViewModel? = null,
