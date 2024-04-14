@@ -122,7 +122,7 @@ tasks.whenTaskAdded {
 dependencies {
     implementation(libs.androidx.lifecycle.viewmodel)
     implementation(libs.compose.destinations.core)
-    implementation(libs.compose.destinations.animations.core)
+    implementation(libs.compose.destinations.bottom.sheet)
     ksp(libs.compose.destinations.ksp)
     implementation(libs.libsu.core)
     implementation(libs.libsu.service)

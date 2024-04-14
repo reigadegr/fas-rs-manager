@@ -1,37 +1,25 @@
 package com.fasRs.manager.modeSetting
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Search
-import androidx.compose.material3.Icon
-import androidx.compose.material3.TextField
-import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import com.fasRs.manager.AnimationProfile
 import com.fasRs.manager.BackButton
 import com.fasRs.manager.GlobalViewModel
-import com.fasRs.manager.LazyScreen
+import com.fasRs.manager.LazyColumnScreen
+import com.fasRs.manager.SearchBar
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.annotation.RootGraph
+import com.ramcosta.composedestinations.bottomsheet.spec.DestinationStyleBottomSheet
 
 @Composable
-@Destination<RootGraph>(style = AnimationProfile::class)
+@Destination<RootGraph>(style = DestinationStyleBottomSheet::class)
 fun AddAppScreen(
     navController: NavController,
     globalViewModel: GlobalViewModel,
@@ -52,7 +40,7 @@ private fun AddAppScreenContent(
     val showList =
         addAppListViewModel?.currentAppShowList?.collectAsState()?.value ?: emptyList()
 
-    LazyScreen {
+    LazyColumnScreen {
         item {
             BackButton(modifier = Modifier.padding(25.dp), navController = navController)
         }
@@ -73,36 +61,4 @@ private fun AddAppScreenContent(
             AppCard(packageInfo = item)
         }
     }
-}
-
-@Composable
-@Preview
-fun SearchBar(
-    modifier: Modifier = Modifier,
-    onSearch: (String) -> Unit = {},
-) {
-    var text by remember {
-        mutableStateOf("")
-    }
-
-    TextField(
-        modifier = modifier,
-        value = text,
-        onValueChange = { newText ->
-            text = newText
-            onSearch(newText)
-        },
-        colors =
-            TextFieldDefaults.colors(
-                focusedIndicatorColor = Color.Transparent,
-                unfocusedIndicatorColor = Color.Transparent,
-            ),
-        label = {
-            Row(horizontalArrangement = Arrangement.Center) {
-                Icon(imageVector = Icons.Default.Search, contentDescription = null)
-            }
-        },
-        shape = RoundedCornerShape(20.dp),
-        singleLine = true,
-    )
 }

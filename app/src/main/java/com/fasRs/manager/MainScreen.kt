@@ -28,7 +28,7 @@ private fun MainScreenContent(
     navController: NavController? = null,
     globalViewModel: GlobalViewModel? = null,
 ) {
-    LazyScreen {
+    LazyColumnScreen {
         item {
             Title(
                 currentFasRsState =
