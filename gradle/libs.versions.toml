@@ -15,7 +15,7 @@ navigationCompose = "2.7.7"
 ksp = "1.9.23-1.0.20"
 composeDestinations = "2.1.0-beta01"
 material3 = "1.1.1"
-NavigationMaterial = "0.35.0-alpha"
+navigationMaterial = "0.35.0-alpha"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -40,7 +40,7 @@ libsu-io = { group = "com.github.topjohnwu.libsu", name = "io", version.ref = "l
 compose-destinations-core = { group = "io.github.raamcosta.compose-destinations", name = "core", version.ref = "composeDestinations" }
 compose-destinations-ksp = { group = "io.github.raamcosta.compose-destinations", name = "ksp", version.ref = "composeDestinations" }
 compose-destinations-bottom-sheet = { group = "io.github.raamcosta.compose-destinations", name = "bottom-sheet", version.ref = "composeDestinations" }
-navigation-material = { group = "com.google.accompanist", name = "accompanist-navigation-material", version.ref = "NavigationMaterial" }
+navigation-material = { group = "com.google.accompanist", name = "accompanist-navigation-material", version.ref = "navigationMaterial" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
