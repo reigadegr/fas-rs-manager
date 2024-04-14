@@ -120,6 +120,7 @@ tasks.whenTaskAdded {
 }
 
 dependencies {
+    implementation(libs.navigation.material)
     implementation(libs.androidx.lifecycle.viewmodel)
     implementation(libs.compose.destinations.core)
     implementation(libs.compose.destinations.bottom.sheet)
