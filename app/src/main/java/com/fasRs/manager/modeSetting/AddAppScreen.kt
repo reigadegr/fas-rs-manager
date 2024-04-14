@@ -1,5 +1,6 @@
 package com.fasRs.manager.modeSetting
 
+import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.items
@@ -19,7 +20,7 @@ import com.ramcosta.composedestinations.bottomsheet.spec.DestinationStyleBottomS
 
 @Composable
 @Destination<RootGraph>(style = DestinationStyleBottomSheet::class)
-fun AddAppScreen(
+fun ColumnScope.AddAppScreen(
     navController: BottomSheetNavigator,
     globalViewModel: GlobalViewModel,
 ) {
