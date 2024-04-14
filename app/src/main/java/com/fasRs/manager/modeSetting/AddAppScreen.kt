@@ -4,7 +4,6 @@ import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.navigation.BottomSheetNavigator
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
@@ -20,18 +19,14 @@ import com.ramcosta.composedestinations.bottomsheet.spec.DestinationStyleBottomS
 
 @Composable
 @Destination<RootGraph>(style = DestinationStyleBottomSheet::class)
-fun ColumnScope.AddAppScreen(
-    navController: BottomSheetNavigator,
-    globalViewModel: GlobalViewModel,
-) {
+fun ColumnScope.AddAppScreen(globalViewModel: GlobalViewModel) {
     val addAppScreenViewModel: AddAppScreenViewModel = viewModel()
-    AddAppScreenContent(navController, globalViewModel, addAppScreenViewModel)
+    AddAppScreenContent(globalViewModel, addAppScreenViewModel)
 }
 
 @Composable
 @Preview
 private fun AddAppScreenContent(
-    navController: BottomSheetNavigator? = null,
     globalViewModel: GlobalViewModel? = null,
     addAppListViewModel: AddAppScreenViewModel? = null,
 ) {
