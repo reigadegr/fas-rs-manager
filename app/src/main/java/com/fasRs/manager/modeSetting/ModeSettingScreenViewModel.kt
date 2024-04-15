@@ -13,7 +13,7 @@ import kotlinx.coroutines.launch
 
 class ModeSettingScreenViewModel(private val applicationContext: Context) : ViewModel() {
     private var _currentAppShowList = MutableStateFlow(emptyList<String>())
-    private var _currentAppShowListInfoFiltered = MutableStateFlow(emptyList<PackageInfo>())
+    private var _currentAppShowListInfoFiltered: MutableStateFlow<List<PackageInfo>?> = MutableStateFlow(null)
     val currentAppShowList: StateFlow<List<String>> = _currentAppShowList.asStateFlow()
     var currentAppShowListInfoFiltered = _currentAppShowListInfoFiltered.asStateFlow()
 
@@ -34,11 +34,12 @@ class ModeSettingScreenViewModel(private val applicationContext: Context) : View
         searchName: String,
     ) {
         val searchNameLowerCase = searchName.lowercase()
-        _currentAppShowListInfoFiltered.value = infos.filter { info ->
-            val appNameLowerCase = info.appName.lowercase()
-            val pkgNameLowerCase = info.pkgName.lowercase()
+        _currentAppShowListInfoFiltered.value =
+            infos.filter { info ->
+                val appNameLowerCase = info.appName.lowercase()
+                val pkgNameLowerCase = info.pkgName.lowercase()
 
-            appNameLowerCase.contains(searchNameLowerCase) or pkgNameLowerCase.contains(searchNameLowerCase)
-        }
+                appNameLowerCase.contains(searchNameLowerCase) or pkgNameLowerCase.contains(searchNameLowerCase)
+            }
     }
 }

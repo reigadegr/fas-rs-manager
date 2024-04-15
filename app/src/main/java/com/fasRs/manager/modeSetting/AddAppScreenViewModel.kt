@@ -7,9 +7,9 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
 class AddAppScreenViewModel : ViewModel() {
-    private var _currentAppShowList: MutableStateFlow<List<PackageInfo>> =
-        MutableStateFlow(emptyList())
-    val currentAppShowList: StateFlow<List<PackageInfo>> = _currentAppShowList.asStateFlow()
+    private var _currentAppShowList: MutableStateFlow<List<PackageInfo>?> =
+        MutableStateFlow(null)
+    val currentAppShowList: StateFlow<List<PackageInfo>?> = _currentAppShowList.asStateFlow()
 
     fun updateAppShowList(
         allPackageInfo: List<PackageInfo>,
@@ -19,14 +19,12 @@ class AddAppScreenViewModel : ViewModel() {
             allPackageInfo.filter { info ->
                 val appName = info.appName.lowercase()
                 val pkgName = info.pkgName.lowercase()
-                val pkgOrNameLowerCase = searchName.lowercase()
+                val searchNameLowerCase = searchName.lowercase()
 
-                pkgOrNameLowerCase.isNotBlank() and (
-                    appName.contains(searchName) or
-                        pkgName.contains(
-                            searchName,
-                        )
-                )
+                appName.contains(searchNameLowerCase) or
+                    pkgName.contains(
+                        searchNameLowerCase,
+                    )
             }
     }
 }

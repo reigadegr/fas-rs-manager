@@ -62,8 +62,8 @@ fun LazyColumnScreen(
 
             LazyColumn(
                 modifier =
-                Modifier
-                    .fillMaxWidth(),
+                    Modifier
+                        .fillMaxWidth(),
                 contentPadding = PaddingValues(25.dp),
             ) {
                 item {
@@ -94,10 +94,10 @@ fun SearchBar(
             onSearch(newText)
         },
         colors =
-        TextFieldDefaults.colors(
-            focusedIndicatorColor = Color.Transparent,
-            unfocusedIndicatorColor = Color.Transparent,
-        ),
+            TextFieldDefaults.colors(
+                focusedIndicatorColor = Color.Transparent,
+                unfocusedIndicatorColor = Color.Transparent,
+            ),
         label = {
             Row(horizontalArrangement = Arrangement.Center) {
                 Icon(imageVector = Icons.Default.Search, contentDescription = null)

@@ -1,6 +1,8 @@
 package com.fasRs.manager.modeSetting
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.ColumnScope
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.items
@@ -24,6 +26,7 @@ fun ColumnScope.AddAppScreen(globalViewModel: GlobalViewModel) {
     AddAppScreenContent(globalViewModel, addAppScreenViewModel)
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 @Preview
 private fun AddAppScreenContent(
@@ -33,10 +36,10 @@ private fun AddAppScreenContent(
     val allPackageInfo =
         globalViewModel?.currentAllPackages?.collectAsState()?.value ?: emptyList()
     val showList =
-        addAppListViewModel?.currentAppShowList?.collectAsState()?.value ?: emptyList()
+        addAppListViewModel?.currentAppShowList?.collectAsState()?.value ?: allPackageInfo
 
     LazyColumnScreen {
-        item(allPackageInfo) {
+        stickyHeader {
             SearchBar(
                 modifier =
                     Modifier
@@ -48,8 +51,12 @@ private fun AddAppScreenContent(
             )
         }
 
-        items(items = showList) { item ->
-            AppCard(packageInfo = item)
+        items(showList.chunked(5)) { infos ->
+            Row {
+                infos.forEach { info ->
+                    AppCard(modifier = Modifier.weight(0.2f), packageInfo = info)
+                }
+            }
         }
     }
 }
