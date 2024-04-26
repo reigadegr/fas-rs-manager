@@ -35,20 +35,32 @@ class ModeSettingScreenViewModel(private val applicationContext: Context) : View
         infos: List<PackageInfo>,
         searchName: String,
     ) {
-        val searchNameLowerCase = searchName.lowercase()
         _currentAppShowListInfoFiltered.value =
             infos.filter { info ->
-                val appNameLowerCase = info.appName.lowercase()
-                val pkgNameLowerCase = info.pkgName.lowercase()
-
-                _currentFilterStatus.value.showable(info) and
-                    appNameLowerCase.contains(
-                        searchNameLowerCase,
-                    ) or pkgNameLowerCase.contains(searchNameLowerCase)
+                stickerFilter(info = info)
+            }.filter { info ->
+                searchFilter(info = info, searchName = searchName)
             }
     }
 
-    fun updadteFilterStatus(content: (FilterStatus) -> Unit) {
+    private fun searchFilter(
+        info: PackageInfo,
+        searchName: String,
+    ): Boolean {
+        val searchNameLowerCase = searchName.lowercase()
+        val appNameLowerCase = info.appName.lowercase()
+        val pkgNameLowerCase = info.pkgName.lowercase()
+
+        return appNameLowerCase.contains(
+            searchNameLowerCase,
+        ) or pkgNameLowerCase.contains(searchNameLowerCase)
+    }
+
+    private fun stickerFilter(info: PackageInfo): Boolean {
+        return _currentFilterStatus.value.showable(info)
+    }
+
+    fun updateFilterStatus(content: (FilterStatus) -> Unit) {
         content(_currentFilterStatus.value)
     }
 }

@@ -156,7 +156,7 @@ private fun ModeSettingScreenContent(
                         selected = filters.system,
                         label = stringResource(id = R.string.filter_system_apps),
                         onClick = {
-                            modeSettingScreenViewModel?.updadteFilterStatus { filter ->
+                            modeSettingScreenViewModel?.updateFilterStatus { filter ->
                                 filter.system = !filter.system
                             }
                         },
@@ -166,7 +166,7 @@ private fun ModeSettingScreenContent(
                         selected = filters.third,
                         label = stringResource(id = R.string.filter_third_apps),
                         onClick = {
-                            modeSettingScreenViewModel?.updadteFilterStatus { filter ->
+                            modeSettingScreenViewModel?.updateFilterStatus { filter ->
                                 filter.third = !filter.third
                             }
                         },
