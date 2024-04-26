@@ -116,7 +116,7 @@ private fun ModeSettingScreenContent(
         }
     val showListInfoFiltered =
         modeSettingScreenViewModel?.currentAppShowListInfoFiltered?.value ?: showListInfo
-    val filers = modeSettingScreenViewModel?.currentFilterStatus?.value ?: FilterStatus()
+    val filters = modeSettingScreenViewModel?.currentFilterStatus?.value ?: FilterStatus()
 
     Box {
         LazyColumnScreen {
@@ -153,18 +153,22 @@ private fun ModeSettingScreenContent(
             item {
                 FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                     FilterSticker(
-                        selected = filers.system,
+                        selected = filters.system,
                         label = stringResource(id = R.string.filter_system_apps),
                         onClick = {
-                            filers.system = !filers.system
+                            modeSettingScreenViewModel?.updadteFilterStatus { filter ->
+                                filter.system = !filter.system
+                            }
                         },
                     )
 
                     FilterSticker(
-                        selected = filers.third,
+                        selected = filters.third,
                         label = stringResource(id = R.string.filter_third_apps),
                         onClick = {
-                            filers.third = !filers.third
+                            modeSettingScreenViewModel?.updadteFilterStatus { filter ->
+                                filter.third = !filter.third
+                            }
                         },
                     )
                 }

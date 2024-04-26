@@ -47,6 +47,10 @@ class ModeSettingScreenViewModel(private val applicationContext: Context) : View
                     ) or pkgNameLowerCase.contains(searchNameLowerCase)
             }
     }
+
+    fun updadteFilterStatus(content: (FilterStatus) -> Unit) {
+        content(_currentFilterStatus.value)
+    }
 }
 
 class FilterStatus {
