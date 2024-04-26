@@ -7,15 +7,17 @@ import com.fasRs.manager.PackageInfo
 import com.fasRs.manager.root.getRoot
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 class ModeSettingScreenViewModel(private val applicationContext: Context) : ViewModel() {
     private var _currentAppShowList = MutableStateFlow(emptyList<String>())
-    private var _currentAppShowListInfoFiltered: MutableStateFlow<List<PackageInfo>?> = MutableStateFlow(null)
-    val currentAppShowList: StateFlow<List<String>> = _currentAppShowList.asStateFlow()
+    private var _currentAppShowListInfoFiltered: MutableStateFlow<List<PackageInfo>?> =
+        MutableStateFlow(null)
+    private var _currentFilterStatus = MutableStateFlow(FilterStatus())
+    val currentAppShowList = _currentAppShowList.asStateFlow()
     var currentAppShowListInfoFiltered = _currentAppShowListInfoFiltered.asStateFlow()
+    var currentFilterStatus = _currentFilterStatus.asStateFlow()
 
     init {
         viewModelScope.launch {
@@ -39,7 +41,19 @@ class ModeSettingScreenViewModel(private val applicationContext: Context) : View
                 val appNameLowerCase = info.appName.lowercase()
                 val pkgNameLowerCase = info.pkgName.lowercase()
 
-                appNameLowerCase.contains(searchNameLowerCase) or pkgNameLowerCase.contains(searchNameLowerCase)
+                _currentFilterStatus.value.showable(info) and
+                    appNameLowerCase.contains(
+                        searchNameLowerCase,
+                    ) or pkgNameLowerCase.contains(searchNameLowerCase)
             }
+    }
+}
+
+class FilterStatus {
+    var system = false
+    var third = true
+
+    fun showable(info: PackageInfo): Boolean {
+        return (system and info.system) or (third and !info.system)
     }
 }

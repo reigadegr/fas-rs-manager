@@ -14,7 +14,7 @@ rustGradle = "0.9.3"
 navigationCompose = "2.7.7"
 ksp = "1.9.23-1.0.20"
 composeDestinations = "2.1.0-beta01"
-material3 = "1.1.1"
+material3 = "1.2.1"
 navigationMaterial = "0.35.0-alpha"
 
 [libraries]

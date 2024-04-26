@@ -1,5 +1,6 @@
 package com.fasRs.manager.modeSetting
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -31,7 +32,9 @@ fun AppCard(
     packageInfo: PackageInfo? = null,
 ) {
     Card(
-        modifier = modifier,
+        modifier =
+            modifier.clickable {
+            },
         elevation =
             CardDefaults.cardElevation(
                 defaultElevation = 0.dp,

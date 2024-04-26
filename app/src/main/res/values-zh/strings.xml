@@ -11,4 +11,6 @@
     <string name="mode_performance">性能</string>
     <string name="mode_fast">极速</string>
     <string name="mode_setting_screen_title">已添加游戏</string>
+    <string name="filter_system_apps">系统</string>
+    <string name="filter_third_apps">三方</string>
 </resources>

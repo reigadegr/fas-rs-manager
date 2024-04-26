@@ -14,11 +14,14 @@ import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material3.FilterChip
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
@@ -28,6 +31,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -105,6 +109,32 @@ fun SearchBar(
         },
         shape = RoundedCornerShape(20.dp),
         singleLine = true,
+    )
+}
+
+@Composable
+@Preview
+fun FilterSticker(
+    modifier: Modifier = Modifier,
+    selected: Boolean = true,
+    onClick: () -> Unit = {},
+    label: String = "preview",
+) {
+    FilterChip(
+        selected = selected,
+        onClick = {
+            onClick()
+        },
+        leadingIcon = {
+            if (selected) {
+                Icon(imageVector = Icons.Default.Check, contentDescription = null)
+            } else {
+                null
+            }
+        },
+        label = {
+            Text(text = label)
+        },
     )
 }
 

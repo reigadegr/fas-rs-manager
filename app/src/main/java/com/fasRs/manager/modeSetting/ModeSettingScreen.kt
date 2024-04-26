@@ -1,8 +1,11 @@
 package com.fasRs.manager.modeSetting
 
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -12,7 +15,6 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -37,6 +39,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.fasRs.manager.AnimationProfile
 import com.fasRs.manager.BackButton
+import com.fasRs.manager.FilterSticker
 import com.fasRs.manager.GlobalViewModel
 import com.fasRs.manager.LazyColumnScreen
 import com.fasRs.manager.PackageInfo
@@ -68,7 +71,10 @@ fun ModeSettingScreen(
     ModeSettingScreenContent(navController, globalViewModel, modeSettingScreenViewModel)
 }
 
-@OptIn(ExperimentalFoundationApi::class, ExperimentalMaterial3Api::class)
+@OptIn(
+    ExperimentalFoundationApi::class,
+    ExperimentalLayoutApi::class,
+)
 @Composable
 @Preview
 @Preview(locale = "zh")
@@ -94,6 +100,7 @@ private fun ModeSettingScreenContent(
                         )!!.let { drawable ->
                             appIconToBitmap(drawable)
                         }.asImageBitmap().asAndroidBitmap(),
+                    system = false,
                 )
 
             val previewList: MutableList<PackageInfo> = emptyList<PackageInfo>().toMutableList()
@@ -109,6 +116,7 @@ private fun ModeSettingScreenContent(
         }
     val showListInfoFiltered =
         modeSettingScreenViewModel?.currentAppShowListInfoFiltered?.value ?: showListInfo
+    val filers = modeSettingScreenViewModel?.currentFilterStatus?.value ?: FilterStatus()
 
     Box {
         LazyColumnScreen {
@@ -139,6 +147,26 @@ private fun ModeSettingScreenContent(
 
                         Spacer(modifier = Modifier.height(25.dp))
                     }
+                }
+            }
+
+            item {
+                FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                    FilterSticker(
+                        selected = filers.system,
+                        label = stringResource(id = R.string.filter_system_apps),
+                        onClick = {
+                            filers.system = !filers.system
+                        },
+                    )
+
+                    FilterSticker(
+                        selected = filers.third,
+                        label = stringResource(id = R.string.filter_third_apps),
+                        onClick = {
+                            filers.third = !filers.third
+                        },
+                    )
                 }
             }
 

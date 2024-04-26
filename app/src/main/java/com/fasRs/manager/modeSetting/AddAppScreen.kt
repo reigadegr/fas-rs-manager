@@ -1,11 +1,11 @@
 package com.fasRs.manager.modeSetting
 
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
@@ -21,7 +21,7 @@ import com.ramcosta.composedestinations.bottomsheet.spec.DestinationStyleBottomS
 
 @Composable
 @Destination<RootGraph>(style = DestinationStyleBottomSheet::class)
-fun ColumnScope.AddAppScreen(globalViewModel: GlobalViewModel) {
+fun AddAppScreen(globalViewModel: GlobalViewModel) {
     val addAppScreenViewModel: AddAppScreenViewModel = viewModel()
     AddAppScreenContent(globalViewModel, addAppScreenViewModel)
 }
@@ -40,15 +40,17 @@ private fun AddAppScreenContent(
 
     LazyColumnScreen {
         stickyHeader {
-            SearchBar(
-                modifier =
-                    Modifier
-                        .fillMaxWidth()
-                        .padding(start = 25.dp, end = 25.dp),
-                onSearch = { searchName ->
-                    addAppListViewModel?.updateAppShowList(allPackageInfo, searchName)
-                },
-            )
+            Surface(modifier = Modifier.fillMaxWidth()) {
+                SearchBar(
+                    modifier =
+                        Modifier
+                            .fillMaxWidth()
+                            .padding(start = 25.dp, end = 25.dp),
+                    onSearch = { searchName ->
+                        addAppListViewModel?.updateAppShowList(allPackageInfo, searchName)
+                    },
+                )
+            }
         }
 
         items(showList.chunked(5)) { infos ->
