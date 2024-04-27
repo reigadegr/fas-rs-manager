@@ -150,21 +150,19 @@ private fun ModeSettingScreenContent(
                     }
                 }
             }
+        }
 
-            item {
-                FloatingActionButton(
-                    modifier =
-                        Modifier
-                            .align(Alignment.BottomEnd)
-                            .padding(50.dp),
-                    onClick = {
-                        navController?.navigate(AddAppScreenDestination)
-                    },
-                    shape = CircleShape,
-                ) {
-                    Icon(imageVector = Icons.Filled.Add, contentDescription = null)
-                }
-            }
+        FloatingActionButton(
+            modifier =
+                Modifier
+                    .align(Alignment.BottomEnd)
+                    .padding(50.dp),
+            onClick = {
+                navController?.navigate(AddAppScreenDestination)
+            },
+            shape = CircleShape,
+        ) {
+            Icon(imageVector = Icons.Filled.Add, contentDescription = null)
         }
     }
 }
