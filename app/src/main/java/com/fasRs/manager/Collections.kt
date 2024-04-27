@@ -112,12 +112,11 @@ fun SearchBar(
 }
 
 @Composable
-@Preview
 fun FilterSticker(
     modifier: Modifier = Modifier,
-    selected: Boolean = true,
+    selected: Boolean,
     onClick: () -> Unit = {},
-    label: String = "preview",
+    label: String,
 ) {
     FilterChip(
         modifier = modifier,
@@ -128,14 +127,24 @@ fun FilterSticker(
         leadingIcon = {
             if (selected) {
                 Icon(imageVector = Icons.Default.Check, contentDescription = null)
-            } else {
-                null
             }
         },
         label = {
             Text(text = label)
         },
     )
+}
+
+@Preview
+@Composable
+private fun FilerStickerTrue() {
+    FilterSticker(selected = true, label = "preview")
+}
+
+@Preview
+@Composable
+private fun FilerStickerFalse() {
+    FilterSticker(selected = false, label = "preview")
 }
 
 @Composable

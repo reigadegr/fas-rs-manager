@@ -11,41 +11,56 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 class ModeSettingScreenViewModel(private val applicationContext: Context) : ViewModel() {
-    private var _currentAppShowList = MutableStateFlow(emptyList<String>())
-    private var _currentAppShowListInfoFiltered: MutableStateFlow<List<PackageInfo>?> =
-        MutableStateFlow(null)
-    private var _currentFilterStatus = MutableStateFlow(FilterStatus())
-    val currentAppShowList = _currentAppShowList.asStateFlow()
-    var currentAppShowListInfoFiltered = _currentAppShowListInfoFiltered.asStateFlow()
-    var currentFilterStatus = _currentFilterStatus.asStateFlow()
+    private var gameList: List<String> = emptyList()
+    private var allAppInfos: List<PackageInfo> = emptyList()
+    private var _currentFilter = MutableStateFlow(Filter())
+    private var _currentAppShowListInfosFiltered = MutableStateFlow(emptyList<PackageInfo>())
+
+    val currentAppShowListInfosFiltered = _currentAppShowListInfosFiltered.asStateFlow()
+    val currentFilter = _currentFilter.asStateFlow()
 
     init {
         viewModelScope.launch {
-            while (true) {
-                getRoot(applicationContext) { root ->
-                    _currentAppShowList.value = root.getFasRsApps()
-                }
-
-                delay(1500)
+            getRoot(applicationContext) { root ->
+                gameList = root.fasRsApps
             }
+
+            refreshCurrentAppShowListInfosFiltered()
+
+            delay(1500)
         }
     }
 
-    fun updateAppShowListFiltered(
-        infos: List<PackageInfo>,
-        searchName: String,
-    ) {
-        _currentAppShowListInfoFiltered.value =
-            infos.filter { info ->
-                stickerFilter(info = info)
-            }.filter { info ->
-                searchFilter(info = info, searchName = searchName)
-            }
+    private fun refreshCurrentAppShowListInfosFiltered() {
+        _currentAppShowListInfosFiltered.value = allAppInfos.filter { info ->
+            gameList.contains(info.pkgName)
+        }.filter { info ->
+            _currentFilter.value.showable(info)
+        }
+    }
+
+    fun updateAllAppInfos(infos: List<PackageInfo>) {
+        allAppInfos = infos
+        refreshCurrentAppShowListInfosFiltered()
+    }
+
+    fun updateFilter(content: (Filter) -> Unit) {
+        content(_currentFilter.value)
+        refreshCurrentAppShowListInfosFiltered()
+    }
+}
+
+class Filter {
+    var searchName = ""
+    var system = false
+    var third = true
+
+    fun showable(info: PackageInfo): Boolean {
+        return searchFilter(info = info) and stickerFilter(info = info)
     }
 
     private fun searchFilter(
         info: PackageInfo,
-        searchName: String,
     ): Boolean {
         val searchNameLowerCase = searchName.lowercase()
         val appNameLowerCase = info.appName.lowercase()
@@ -57,19 +72,6 @@ class ModeSettingScreenViewModel(private val applicationContext: Context) : View
     }
 
     private fun stickerFilter(info: PackageInfo): Boolean {
-        return _currentFilterStatus.value.showable(info)
-    }
-
-    fun updateFilterStatus(content: (FilterStatus) -> Unit) {
-        content(_currentFilterStatus.value)
-    }
-}
-
-class FilterStatus {
-    var system = false
-    var third = true
-
-    fun showable(info: PackageInfo): Boolean {
         return (system and info.system) or (third and !info.system)
     }
 }
