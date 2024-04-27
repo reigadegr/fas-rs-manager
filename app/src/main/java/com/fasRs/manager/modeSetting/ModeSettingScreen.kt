@@ -119,10 +119,10 @@ private fun ModeSettingScreenContent(
 
             item {
                 FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                    val filter = modeSettingScreenViewModel?.currentFilter?.collectAsState()?.value ?: Filter()
+                    
                     FilterSticker(
-                        selected =
-                            modeSettingScreenViewModel?.currentFilter?.value?.system
-                                ?: false,
+                        selected = filter.system,
                         label = stringResource(id = R.string.filter_system_apps),
                         onClick = {
                             modeSettingScreenViewModel?.updateFilter { filter ->
@@ -132,7 +132,7 @@ private fun ModeSettingScreenContent(
                     )
 
                     FilterSticker(
-                        selected = modeSettingScreenViewModel?.currentFilter?.value?.third ?: true,
+                        selected = filter.third,
                         label = stringResource(id = R.string.filter_third_apps),
                         onClick = {
                             modeSettingScreenViewModel?.updateFilter { filter ->
