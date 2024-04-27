@@ -32,11 +32,12 @@ class ModeSettingScreenViewModel(private val applicationContext: Context) : View
     }
 
     private fun refreshCurrentAppShowListInfosFiltered() {
-        _currentAppShowListInfosFiltered.value = allAppInfos.filter { info ->
-            gameList.contains(info.pkgName)
-        }.filter { info ->
-            _currentFilter.value.showable(info)
-        }
+        _currentAppShowListInfosFiltered.value =
+            allAppInfos.filter { info ->
+                gameList.contains(info.pkgName)
+            }.filter { info ->
+                _currentFilter.value.showable(info)
+            }
     }
 
     fun updateAllAppInfos(infos: List<PackageInfo>) {
@@ -59,9 +60,7 @@ class Filter {
         return searchFilter(info = info) and stickerFilter(info = info)
     }
 
-    private fun searchFilter(
-        info: PackageInfo,
-    ): Boolean {
+    private fun searchFilter(info: PackageInfo): Boolean {
         val searchNameLowerCase = searchName.lowercase()
         val appNameLowerCase = info.appName.lowercase()
         val pkgNameLowerCase = info.pkgName.lowercase()

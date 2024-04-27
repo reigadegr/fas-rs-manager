@@ -83,7 +83,7 @@ private fun ModeSettingScreenContent(
     val showListInfoFiltered =
         modeSettingScreenViewModel?.currentAppShowListInfosFiltered?.collectAsState()?.value
             ?: List(100) {
-                thisPackageInfo(context = globalViewModel!!.applicationContext)
+                thisPackageInfo()
             }
 
     Box {
