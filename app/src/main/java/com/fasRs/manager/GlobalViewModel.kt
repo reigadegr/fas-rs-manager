@@ -15,7 +15,8 @@ import kotlinx.coroutines.withContext
 class GlobalViewModel(val applicationContext: Context) : ViewModel() {
     private var _currentFasRsState = MutableStateFlow(FasRsState.NEED_ROOT)
     private var _currentAllPackages = MutableStateFlow(emptyList<PackageInfo>())
-    private var _currentFasRsVersion = MutableStateFlow(applicationContext.resources.getString(R.string.title_version_unknown))
+    private var _currentFasRsVersion =
+        MutableStateFlow(applicationContext.resources.getString(R.string.title_version_unknown))
     val currentFasRsState: StateFlow<FasRsState> = _currentFasRsState.asStateFlow()
     val currentAllPackages: StateFlow<List<PackageInfo>> = _currentAllPackages.asStateFlow()
     val currentFasRsVersion: StateFlow<String> = _currentFasRsVersion.asStateFlow()

@@ -10,6 +10,7 @@ class AddAppScreenViewModel : ViewModel() {
     private var _currentAppShowList: MutableStateFlow<List<PackageInfo>?> =
         MutableStateFlow(null)
     val currentAppShowList: StateFlow<List<PackageInfo>?> = _currentAppShowList.asStateFlow()
+
     fun updateAppShowList(
         allPackageInfo: List<PackageInfo>,
         searchName: String,

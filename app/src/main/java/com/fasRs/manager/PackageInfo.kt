@@ -8,7 +8,12 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.core.content.res.ResourcesCompat
 
-data class PackageInfo(val appName: String, val pkgName: String, val icon: Bitmap, val system: Boolean)
+data class PackageInfo(
+    val appName: String,
+    val pkgName: String,
+    val icon: Bitmap,
+    val system: Boolean,
+)
 
 @Composable
 fun thisPackageInfo(): PackageInfo {

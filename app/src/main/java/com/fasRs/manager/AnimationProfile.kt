@@ -10,31 +10,35 @@ import androidx.navigation.NavBackStackEntry
 import com.ramcosta.composedestinations.spec.DestinationStyle
 
 object AnimationProfile : DestinationStyle.Animated() {
-    override val enterTransition: AnimatedContentTransitionScope<NavBackStackEntry>.() -> EnterTransition? = {
-        slideInHorizontally(
-            initialOffsetX = { 1500 },
-            animationSpec = tween(300),
-        )
-    }
+    override val enterTransition: AnimatedContentTransitionScope<NavBackStackEntry>.() -> EnterTransition? =
+        {
+            slideInHorizontally(
+                initialOffsetX = { 1500 },
+                animationSpec = tween(300),
+            )
+        }
 
-    override val exitTransition: AnimatedContentTransitionScope<NavBackStackEntry>.() -> ExitTransition? = {
-        slideOutHorizontally(
-            targetOffsetX = { -1500 },
-            animationSpec = tween(300),
-        )
-    }
+    override val exitTransition: AnimatedContentTransitionScope<NavBackStackEntry>.() -> ExitTransition? =
+        {
+            slideOutHorizontally(
+                targetOffsetX = { -1500 },
+                animationSpec = tween(300),
+            )
+        }
 
-    override val popEnterTransition: AnimatedContentTransitionScope<NavBackStackEntry>.() -> EnterTransition? = {
-        slideInHorizontally(
-            initialOffsetX = { 1500 },
-            animationSpec = tween(300),
-        )
-    }
+    override val popEnterTransition: AnimatedContentTransitionScope<NavBackStackEntry>.() -> EnterTransition? =
+        {
+            slideInHorizontally(
+                initialOffsetX = { 1500 },
+                animationSpec = tween(300),
+            )
+        }
 
-    override val popExitTransition: AnimatedContentTransitionScope<NavBackStackEntry>.() -> ExitTransition? = {
-        slideOutHorizontally(
-            targetOffsetX = { -1500 },
-            animationSpec = tween(300),
-        )
-    }
+    override val popExitTransition: AnimatedContentTransitionScope<NavBackStackEntry>.() -> ExitTransition? =
+        {
+            slideOutHorizontally(
+                targetOffsetX = { -1500 },
+                animationSpec = tween(300),
+            )
+        }
 }
