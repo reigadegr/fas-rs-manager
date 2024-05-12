@@ -35,7 +35,7 @@ class GlobalViewModel(val applicationContext: Context) : ViewModel() {
                 }
 
                 withContext(Dispatchers.IO) {
-                    _currentAllPackages.value = getAllPackages(applicationContext)
+                    _currentAllPackages.value = getAllPackageInfos(applicationContext)
                 }
 
                 delay(1500)

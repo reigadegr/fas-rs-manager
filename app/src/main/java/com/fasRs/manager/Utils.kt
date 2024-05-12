@@ -7,17 +7,30 @@ import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.drawable.Drawable
 
-fun getAllPackages(context: Context): List<PackageInfo> {
+fun getAllPackageInfos(context: Context): List<PackageInfo> {
     val packageManager = context.packageManager
     val infos = packageManager.getInstalledApplications(PackageManager.GET_META_DATA)
+
     return infos.map { info ->
         val appName = info.loadLabel(packageManager).toString()
-        val pkgName = info.packageName
+        val packageName = info.packageName
         val system = info.flags.and(FLAG_SYSTEM) != 0
         val icon = appIconToBitmap(info.loadIcon(packageManager))
 
-        PackageInfo(appName = appName, pkgName = pkgName, icon = icon, system = system)
+        PackageInfo(appName = appName, packageName = packageName, icon = icon, system = system)
     }
+}
+
+fun getSpecPackageInfo(context: Context, packageName: String): PackageInfo {
+    val packageManager = context.packageManager
+    val info = packageManager.getApplicationInfo(packageName, PackageManager.GET_META_DATA)
+
+    val appName = info.loadLabel(packageManager).toString()
+    val packageName = info.packageName
+    val system = info.flags.and(FLAG_SYSTEM) != 0
+    val icon = appIconToBitmap(info.loadIcon(packageManager))
+
+    return PackageInfo(appName = appName, packageName = packageName, icon = icon, system = system)
 }
 
 fun appIconToBitmap(icon: Drawable): Bitmap {

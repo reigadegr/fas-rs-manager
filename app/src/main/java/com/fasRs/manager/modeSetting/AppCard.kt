@@ -1,12 +1,9 @@
 package com.fasRs.manager.modeSetting
 
-import android.os.Parcelable
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
@@ -28,6 +25,7 @@ import androidx.core.content.res.ResourcesCompat
 import com.fasRs.manager.PackageInfo
 import com.fasRs.manager.R
 import com.fasRs.manager.appIconToBitmap
+import com.fasRs.manager.getSpecPackageInfo
 import com.fasRs.manager.thisPackageInfo
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.annotation.RootGraph
@@ -44,14 +42,18 @@ fun AppCard(
 ) {
     Card(
         modifier =
-            modifier.clickable {
-                navController?.navigate(AppDialogDestination(packageInfo = packageInfo))
-            },
+        modifier.clickable {
+            navController?.navigate(
+                AppDialogDestination(
+                    packageName = packageInfo?.packageName,
+                )
+            )
+        },
         elevation =
-            CardDefaults.cardElevation(
-                defaultElevation = 0.dp,
-                pressedElevation = 3.dp,
-            ),
+        CardDefaults.cardElevation(
+            defaultElevation = 0.dp,
+            pressedElevation = 3.dp,
+        ),
         shape = RoundedCornerShape(20.dp),
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.background),
     ) {
@@ -71,13 +73,15 @@ fun AppCard(
                 }.asImageBitmap()
         }
 
-        Box(modifier = Modifier
-            .fillMaxSize()
-            .padding(10.dp), contentAlignment = Alignment.Center) {
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(10.dp), contentAlignment = Alignment.Center
+        ) {
             Icon(
                 modifier =
-                    Modifier
-                        .clip(CircleShape),
+                Modifier
+                    .clip(CircleShape),
                 bitmap = icon!!,
                 contentDescription = null,
                 tint = Color.Unspecified,
@@ -89,7 +93,14 @@ fun AppCard(
 @Composable
 @Destination<RootGraph>(style = DestinationStyle.Dialog::class)
 @Preview
-fun AppDialog(navController: DestinationsNavigator? = null, packageInfo: PackageInfo? = null) {
+fun AppDialog(
+    navController: DestinationsNavigator? = null,
+    packageName: String? = null,
+) {
+    val context = LocalContext.current
+    val packageInfo =
+        packageName?.let { getSpecPackageInfo(context, packageName = it) } ?: thisPackageInfo()
+
     Surface(
         shape = RoundedCornerShape(20.dp),
         color = MaterialTheme.colorScheme.primaryContainer,

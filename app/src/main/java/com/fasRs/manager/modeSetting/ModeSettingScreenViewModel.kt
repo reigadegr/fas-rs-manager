@@ -35,7 +35,7 @@ class ModeSettingScreenViewModel(private val applicationContext: Context) : View
         viewModelScope.launch {
             _currentAppShowListInfosFiltered.value =
                 allAppInfos.filter { info ->
-                    gameList.contains(info.pkgName)
+                    gameList.contains(info.packageName)
                 }.filter { info ->
                     _currentFilter.value.showable(info)
                 }
@@ -69,7 +69,7 @@ class Filter {
     private fun searchFilter(info: PackageInfo): Boolean {
         val searchNameLowerCase = searchName.lowercase()
         val appNameLowerCase = info.appName.lowercase()
-        val pkgNameLowerCase = info.pkgName.lowercase()
+        val pkgNameLowerCase = info.packageName.lowercase()
 
         return appNameLowerCase.contains(
             searchNameLowerCase,

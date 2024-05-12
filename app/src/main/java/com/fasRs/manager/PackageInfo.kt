@@ -8,15 +8,12 @@ import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.core.content.res.ResourcesCompat
-import com.ramcosta.composedestinations.navargs.DestinationsNavTypeSerializer
-import com.ramcosta.composedestinations.navargs.NavTypeSerializer
 import kotlinx.parcelize.Parcelize
-import kotlinx.serialization.Serializable
 
 @Parcelize
 data class PackageInfo(
     val appName: String,
-    val pkgName: String,
+    val packageName: String,
     val icon: Bitmap,
     val system: Boolean,
 ) : Parcelable
@@ -27,7 +24,7 @@ fun thisPackageInfo(): PackageInfo {
 
     return PackageInfo(
         appName = stringResource(id = R.string.app_name),
-        pkgName = stringResource(id = R.string.app_name),
+        packageName = stringResource(id = R.string.app_name),
         icon =
             ResourcesCompat.getDrawable(
                 context.resources,

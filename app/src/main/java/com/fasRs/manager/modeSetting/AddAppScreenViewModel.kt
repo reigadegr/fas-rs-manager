@@ -18,7 +18,7 @@ class AddAppScreenViewModel : ViewModel() {
         _currentAppShowList.value =
             allPackageInfo.filter { info ->
                 val appName = info.appName.lowercase()
-                val pkgName = info.pkgName.lowercase()
+                val pkgName = info.packageName.lowercase()
                 val searchNameLowerCase = searchName.lowercase()
 
                 appName.contains(searchNameLowerCase) or
