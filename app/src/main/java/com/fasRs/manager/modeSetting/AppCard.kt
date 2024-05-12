@@ -89,7 +89,7 @@ fun AppCard(
 @Composable
 @Destination<RootGraph>(style = DestinationStyle.Dialog::class)
 @Preview
-fun AppDialog(navController: DestinationsNavigator? = null, packageInfo: Parcelable? = null) {
+fun AppDialog(navController: DestinationsNavigator? = null, packageInfo: PackageInfo? = null) {
     Surface(
         shape = RoundedCornerShape(20.dp),
         color = MaterialTheme.colorScheme.primaryContainer,
