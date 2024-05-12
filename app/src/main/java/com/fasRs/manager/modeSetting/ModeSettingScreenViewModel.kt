@@ -43,15 +43,15 @@ class ModeSettingScreenViewModel(private val applicationContext: Context) : View
     }
 
     fun updateAllAppInfos(infos: List<PackageInfo>) {
-        allAppInfos = infos
         viewModelScope.launch {
+            allAppInfos = infos
             refreshCurrentAppShowListInfosFiltered()
         }
     }
 
     fun updateFilter(content: (Filter) -> Unit) {
-        content(_currentFilter.value)
         viewModelScope.launch {
+            content(_currentFilter.value)
             refreshCurrentAppShowListInfosFiltered()
         }
     }

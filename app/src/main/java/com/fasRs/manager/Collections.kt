@@ -33,9 +33,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
 import com.ramcosta.composedestinations.generated.NavGraphs
-import com.ramcosta.composedestinations.navigation.navigate
+import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
 @Composable
 fun Background(
@@ -151,7 +150,7 @@ private fun FilerStickerFalse() {
 @Preview
 fun BackButton(
     modifier: Modifier = Modifier,
-    navController: NavController? = null,
+    navController: DestinationsNavigator? = null,
 ) {
     IconButton(
         modifier = modifier.size(30.dp),

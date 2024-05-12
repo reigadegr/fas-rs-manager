@@ -31,7 +31,6 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.NavController
 import com.fasRs.manager.AnimationProfile
 import com.fasRs.manager.BackButton
 import com.fasRs.manager.FilterSticker
@@ -43,12 +42,12 @@ import com.fasRs.manager.thisPackageInfo
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.annotation.RootGraph
 import com.ramcosta.composedestinations.generated.destinations.AddAppScreenDestination
-import com.ramcosta.composedestinations.navigation.navigate
+import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
 @Composable
 @Destination<RootGraph>(style = AnimationProfile::class)
 fun ModeSettingScreen(
-    navController: NavController,
+    navController: DestinationsNavigator,
     globalViewModel: GlobalViewModel,
 ) {
     val modeSettingScreenViewModel: ModeSettingScreenViewModel =
@@ -73,7 +72,7 @@ fun ModeSettingScreen(
 @Preview
 @Preview(locale = "zh")
 private fun ModeSettingScreenContent(
-    navController: NavController? = null,
+    navController: DestinationsNavigator? = null,
     globalViewModel: GlobalViewModel? = null,
     modeSettingScreenViewModel: ModeSettingScreenViewModel? = null,
 ) {
@@ -146,7 +145,7 @@ private fun ModeSettingScreenContent(
             items(showListInfoFiltered.chunked(5)) { infos ->
                 Row {
                     infos.forEach { info ->
-                        AppCard(modifier = Modifier.weight(0.2f), packageInfo = info)
+                        AppCard(modifier = Modifier.weight(0.2f), navController = navController, packageInfo = info)
                     }
                 }
             }

@@ -11,11 +11,12 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.annotation.RootGraph
+import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
 @Composable
 @Destination<RootGraph>(start = true, style = AnimationProfile::class)
 fun MainScreen(
-    navController: NavController,
+    navController: DestinationsNavigator,
     globalViewModel: GlobalViewModel,
 ) {
     MainScreenContent(navController, globalViewModel)
@@ -25,7 +26,7 @@ fun MainScreen(
 @Preview(locale = "zh")
 @Composable
 private fun MainScreenContent(
-    navController: NavController? = null,
+    navController: DestinationsNavigator? = null,
     globalViewModel: GlobalViewModel? = null,
 ) {
     LazyColumnScreen {

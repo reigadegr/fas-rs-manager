@@ -18,18 +18,20 @@ import com.fasRs.manager.SearchBar
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.annotation.RootGraph
 import com.ramcosta.composedestinations.bottomsheet.spec.DestinationStyleBottomSheet
+import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
 @Composable
 @Destination<RootGraph>(style = DestinationStyleBottomSheet::class)
-fun AddAppScreen(globalViewModel: GlobalViewModel) {
+fun AddAppScreen(navController: DestinationsNavigator, globalViewModel: GlobalViewModel) {
     val addAppScreenViewModel: AddAppScreenViewModel = viewModel()
-    AddAppScreenContent(globalViewModel, addAppScreenViewModel)
+    AddAppScreenContent(navController, globalViewModel, addAppScreenViewModel)
 }
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 @Preview
 private fun AddAppScreenContent(
+    navController: DestinationsNavigator? = null,
     globalViewModel: GlobalViewModel? = null,
     addAppListViewModel: AddAppScreenViewModel? = null,
 ) {
@@ -56,7 +58,7 @@ private fun AddAppScreenContent(
         items(showList.chunked(5)) { infos ->
             Row {
                 infos.forEach { info ->
-                    AppCard(modifier = Modifier.weight(0.2f), packageInfo = info)
+                    AppCard(modifier = Modifier.weight(0.2f), navController = navController, packageInfo = info)
                 }
             }
         }

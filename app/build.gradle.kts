@@ -6,6 +6,7 @@ plugins {
     alias(libs.plugins.jetbrainsKotlinAndroid)
     alias(libs.plugins.rustAndroidGradle)
     alias(libs.plugins.ksp)
+    alias(libs.plugins.serialization)
     id("kotlin-parcelize")
 }
 
@@ -121,6 +122,7 @@ tasks.whenTaskAdded {
 }
 
 dependencies {
+    implementation(libs.kotlinx.serialization.json)
     implementation(libs.navigation.material)
     implementation(libs.androidx.lifecycle.viewmodel)
     implementation(libs.compose.destinations.core)
@@ -137,7 +139,6 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
-    implementation(libs.androidx.navigation.compose)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
