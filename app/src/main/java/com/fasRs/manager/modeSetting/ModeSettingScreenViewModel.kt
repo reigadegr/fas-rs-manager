@@ -32,22 +32,28 @@ class ModeSettingScreenViewModel(private val applicationContext: Context) : View
     }
 
     private fun refreshCurrentAppShowListInfosFiltered() {
-        _currentAppShowListInfosFiltered.value =
-            allAppInfos.filter { info ->
-                gameList.contains(info.pkgName)
-            }.filter { info ->
-                _currentFilter.value.showable(info)
-            }
+        viewModelScope.launch {
+            _currentAppShowListInfosFiltered.value =
+                allAppInfos.filter { info ->
+                    gameList.contains(info.pkgName)
+                }.filter { info ->
+                    _currentFilter.value.showable(info)
+                }
+        }
     }
 
     fun updateAllAppInfos(infos: List<PackageInfo>) {
         allAppInfos = infos
-        refreshCurrentAppShowListInfosFiltered()
+        viewModelScope.launch {
+            refreshCurrentAppShowListInfosFiltered()
+        }
     }
 
     fun updateFilter(content: (Filter) -> Unit) {
         content(_currentFilter.value)
-        refreshCurrentAppShowListInfosFiltered()
+        viewModelScope.launch {
+            refreshCurrentAppShowListInfosFiltered()
+        }
     }
 }
 
