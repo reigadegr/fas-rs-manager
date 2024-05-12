@@ -13,7 +13,7 @@ fun getAllPackages(context: Context): List<PackageInfo> {
     return infos.map { info ->
         val appName = info.loadLabel(packageManager).toString()
         val pkgName = info.packageName
-        val system = info.flags.and(FLAG_SYSTEM) == 0
+        val system = info.flags.and(FLAG_SYSTEM) != 0
         val icon = appIconToBitmap(info.loadIcon(packageManager))
 
         PackageInfo(appName = appName, pkgName = pkgName, icon = icon, system = system)
