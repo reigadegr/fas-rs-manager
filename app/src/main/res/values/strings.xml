@@ -11,6 +11,6 @@
     <string name="mode_performance">performance</string>
     <string name="mode_fast">fast</string>
     <string name="mode_setting_screen_title">Games Added</string>
-    <string name="filter_system_apps">System</string>
+    <string name="filter_system_apps">system</string>
     <string name="filter_third_apps">third party</string>
 </resources>

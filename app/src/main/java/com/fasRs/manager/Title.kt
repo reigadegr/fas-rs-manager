@@ -30,16 +30,12 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 @Preview
-fun Title(
+fun TitleCard(
     modifier: Modifier = Modifier,
     currentFasRsState: FasRsState = FasRsState.RUNNING,
     currentFasRsVersion: String = stringResource(id = R.string.title_version_unknown),
 ) {
     Column(modifier = modifier) {
-        Box {
-            TitleText(modifier = Modifier, color = MaterialTheme.colorScheme.primary)
-        }
-
         Spacer(modifier = Modifier.height(25.dp))
         val backgroundColor =
             when (currentFasRsState) {
@@ -122,9 +118,10 @@ fun TitleIcon(
 }
 
 @Composable
+@Preview
 fun TitleText(
     modifier: Modifier = Modifier,
-    color: Color,
+    color: Color = MaterialTheme.colorScheme.primary,
 ) {
     Text(
         text = "fas-rs",

@@ -32,17 +32,18 @@ const CONFIG: &str = "/sdcard/Android/fas-rs/games.toml";
 
 #[jni_fn("com.fasRs.manager.root.Native")]
 pub fn isFasRsRunning(_: JNIEnv, _: JClass) -> jboolean {
-    let pid = Path::new(NODE_DIR).join("pid");
-    let Ok(pid) = fs::read_to_string(pid) else {
-        return as_jboolean(false);
-    };
+    for process in fs::read_dir("/proc")
+        .unwrap()
+        .filter_map(|e| e.ok())
+        .map(|p| p.path().join("comm"))
+        .filter_map(|p| fs::read_to_string(p).ok())
+    {
+        if process.trim() == "fas-rs" {
+            return as_jboolean(true);
+        }
+    }
 
-    let comm = Path::new("/proc").join(pid).join("comm");
-    let Ok(comm) = fs::read_to_string(comm) else {
-        return as_jboolean(false);
-    };
-
-    as_jboolean(comm.trim() == "fas-rs")
+    as_jboolean(false)
 }
 
 #[jni_fn("com.fasRs.manager.root.Native")]

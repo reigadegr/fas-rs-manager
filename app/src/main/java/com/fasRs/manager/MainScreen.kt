@@ -30,7 +30,11 @@ private fun MainScreenContent(
 ) {
     LazyColumnScreen {
         item {
-            Title(
+            TitleText()
+        }
+
+        item {
+            TitleCard(
                 currentFasRsState =
                     globalViewModel?.currentFasRsState?.collectAsState()?.value
                         ?: FasRsState.RUNNING,
