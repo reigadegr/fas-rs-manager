@@ -43,6 +43,9 @@ import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.annotation.RootGraph
 import com.ramcosta.composedestinations.generated.destinations.AddAppScreenDestination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
+import kotlinx.coroutines.flow.emptyFlow
 
 @Composable
 @Destination<RootGraph>(style = AnimationProfile::class)
@@ -117,9 +120,9 @@ private fun ModeSettingScreenContent(
             }
 
             item {
+                val filter by (modeSettingScreenViewModel?.currentFilter?: emptyFlow()).collectAsState(Filter())
+                
                 FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                    val filter = modeSettingScreenViewModel?.currentFilter?.collectAsState()?.value ?: Filter()
-                    
                     FilterSticker(
                         selected = filter.system,
                         label = stringResource(id = R.string.filter_system_apps),
