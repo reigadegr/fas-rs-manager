@@ -44,7 +44,7 @@ import com.ramcosta.composedestinations.annotation.RootGraph
 import com.ramcosta.composedestinations.generated.destinations.AddAppScreenDestination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.setValue
+import com.fasRs.manager.PackageInfo
 import kotlinx.coroutines.flow.emptyFlow
 
 @Composable
@@ -53,16 +53,13 @@ fun ModeSettingScreen(
     navController: DestinationsNavigator,
     globalViewModel: GlobalViewModel,
 ) {
-    val modeSettingScreenViewModel: ModeSettingScreenViewModel =
-        viewModel(
-            factory =
-                object : ViewModelProvider.Factory {
-                    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                        @Suppress("UNCHECKED_CAST")
-                        return ModeSettingScreenViewModel(globalViewModel.applicationContext) as T
-                    }
-                },
-        )
+    val modeSettingScreenViewModel: ModeSettingScreenViewModel = viewModel(
+        factory = object : ViewModelProvider.Factory {
+            override fun <T : ViewModel> create(modelClass: Class<T>): T {
+                @Suppress("UNCHECKED_CAST") return ModeSettingScreenViewModel(globalViewModel.applicationContext) as T
+            }
+        },
+    )
 
     ModeSettingScreenContent(navController, globalViewModel, modeSettingScreenViewModel)
 }
@@ -82,11 +79,11 @@ private fun ModeSettingScreenContent(
     globalViewModel?.currentAllPackages?.collectAsState()?.let { infos ->
         modeSettingScreenViewModel?.updateAllAppInfos(infos = infos.value)
     }
-    val showListInfoFiltered =
-        modeSettingScreenViewModel?.currentAppShowListInfosFiltered?.collectAsState()?.value
-            ?: List(100) {
-                thisPackageInfo()
-            }
+
+    val showListInfoFiltered: List<PackageInfo> by (modeSettingScreenViewModel?.currentAppShowListInfosFiltered
+        ?: emptyFlow()).collectAsState(initial = List(100) {
+        thisPackageInfo()
+    })
 
     Box {
         LazyColumnScreen {
@@ -115,50 +112,52 @@ private fun ModeSettingScreenContent(
                         }
 
                         Spacer(modifier = Modifier.height(25.dp))
+
+                        val filter by (modeSettingScreenViewModel?.currentFilter
+                            ?: emptyFlow()).collectAsState(Filter())
+
+                        FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                            FilterSticker(
+                                selected = filter.system,
+                                label = stringResource(id = R.string.filter_system_apps),
+                                onClick = {
+                                    modeSettingScreenViewModel?.updateFilter { filter ->
+                                        filter.system = !filter.system
+                                    }
+                                },
+                            )
+
+                            FilterSticker(
+                                selected = filter.third,
+                                label = stringResource(id = R.string.filter_third_apps),
+                                onClick = {
+                                    modeSettingScreenViewModel?.updateFilter { filter ->
+                                        filter.third = !filter.third
+                                    }
+                                },
+                            )
+                        }
                     }
-                }
-            }
-
-            item {
-                val filter by (modeSettingScreenViewModel?.currentFilter?: emptyFlow()).collectAsState(Filter())
-                
-                FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                    FilterSticker(
-                        selected = filter.system,
-                        label = stringResource(id = R.string.filter_system_apps),
-                        onClick = {
-                            modeSettingScreenViewModel?.updateFilter { filter ->
-                                filter.system = !filter.system
-                            }
-                        },
-                    )
-
-                    FilterSticker(
-                        selected = filter.third,
-                        label = stringResource(id = R.string.filter_third_apps),
-                        onClick = {
-                            modeSettingScreenViewModel?.updateFilter { filter ->
-                                filter.third = !filter.third
-                            }
-                        },
-                    )
                 }
             }
 
             items(showListInfoFiltered.chunked(5)) { infos ->
                 Row {
                     infos.forEach { info ->
-                        AppCard(modifier = Modifier.weight(0.2f), navController = navController, packageInfo = info)
+                        AppCard(
+                            modifier = Modifier.weight(0.2f),
+                            navController = navController,
+                            packageInfo = info
+                        )
                     }
                 }
             }
         }
 
         FloatingActionButton(
-            modifier =
-                Modifier
-                    .align(Alignment.BottomEnd)
-                    .padding(50.dp),
+            modifier = Modifier
+                .align(Alignment.BottomEnd)
+                .padding(50.dp),
             onClick = {
                 navController?.navigate(AddAppScreenDestination)
             },

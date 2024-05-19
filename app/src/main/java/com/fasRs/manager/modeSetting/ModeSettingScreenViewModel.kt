@@ -21,13 +21,14 @@ class ModeSettingScreenViewModel(private val applicationContext: Context) : View
 
     init {
         viewModelScope.launch {
-            getRoot(applicationContext) { root ->
-                gameList = root.fasRsApps
+            while (true) {
+                getRoot(applicationContext) { root ->
+                    gameList = root.fasRsApps
+                }
+
+                refreshCurrentAppShowListInfosFiltered()
+                delay(1500)
             }
-
-            refreshCurrentAppShowListInfosFiltered()
-
-            delay(1500)
         }
     }
 

@@ -29,8 +29,7 @@ android {
 
         ndk {
             abiFilters.clear()
-            //noinspection ChromeOsAbiSupport
-            abiFilters += listOf("arm64-v8a")
+            abiFilters += listOf("arm64-v8a", "x86_64")
         }
     }
 
@@ -105,7 +104,7 @@ android {
 cargo {
     module = "src/main/rust/backend"
     libname = "backend"
-    targets = listOf("arm64")
+    targets = listOf("arm64", "x86_64")
     profile = "release"
 
     tasks.withType<Exec> {
